@@ -19,7 +19,7 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
     offset: ["start start", "end start"],
   });
   const [isFixed, setIsFixed] = useState(true);
-  
+
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     setIsFixed(v < 0.98);
   });
@@ -49,11 +49,11 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
       {/* ================= STICKY SCROLL AREA ================= */}
       <div
         ref={stickyRef}
-        className="relative w-full h-[67vh] lg:h-[79vh] flex items-start justify-center px-4 pt-20 lg:pt-50"
+        className="relative w-full h-[55vh] lg:h-[79vh] flex items-start justify-center px-4 pt-20 lg:pt-50"
       >
         {/* Sticky element */}
         <motion.div
-          className={`${isFixed ? "fixed top-20 lg:top-48" : "absolute top-0"} left-1/2 -translate-x-1/2 max-w-4xl w-full text-center z-10 px-4`}
+          className={`${isFixed ? "fixed top-30 lg:top-48" : "absolute top-0"} left-1/2 -translate-x-1/2 max-w-4xl w-full text-center z-10 px-4`}
         >
           <motion.div
             initial={{ opacity: 0, y: 18 }}
@@ -65,7 +65,7 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
               <span className="mr-2 lg:mr-4">KUDU</span>
 
               <GradientText
-                colors={["#FF9FFC","#BFC1C2","#0042aa"]}
+                colors={["#FF9FFC", "#BFC1C2", "#0042aa"]}
                 animationSpeed={3.5}
                 showBorder={false}
                 className="inline-flex !mx-0 pr-1"
