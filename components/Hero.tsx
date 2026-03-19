@@ -49,7 +49,7 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
       {/* ================= STICKY SCROLL AREA ================= */}
       <div
         ref={stickyRef}
-        className="relative w-full h-[55vh] lg:h-[79vh] flex items-start justify-center px-4 pt-20 lg:pt-50"
+        className="relative w-full h-[60vh] lg:h-[79vh] flex items-start justify-center px-4 pt-20 lg:pt-50"
       >
         {/* Sticky element */}
         <motion.div
