@@ -1,16 +1,7 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import VerticalHero from './VerticalHero';
 import VerticalCard from './VerticalCard';
-import { 
-  FabricKnitSVG, 
-  PrintingInkSVG, 
-  GarmentStitchSVG, 
-  EmbroideryNeedleSVG, 
-  ProtectiveShieldSVG, 
-  InfrastructureMotionSVG 
-} from './AnimatedSVGs';
 
 export type VerticalID = 'fabric-production' | 'printing-processing' | 'garment-manufacturing' | 'embroidery-finishing' | 'protective-textiles' | 'infrastructure-capabilities';
 
@@ -59,50 +50,79 @@ const VerticalsLanding: React.FC<VerticalsLandingProps> = ({ onVerticalClick }) 
   ];
 
   return (
-    <div className="bg-white min-h-screen">
-      <VerticalHero 
-        title="Our Verticals" 
-        subtitle="Integrated expertise across the entire textile value chain, from raw fiber to retail-ready garments."
-      />
+    <div className="bg-[#0A0A0A] min-h-screen relative overflow-hidden">
+      {/* Global Architectural Grid Background */}
+      <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none">
+        <svg width="100%" height="100%" className="absolute inset-0">
+          <pattern id="bg-grid-v2" width="120" height="120" patternUnits="userSpaceOnUse">
+            <path d="M 120 0 L 0 0 0 120" fill="none" stroke="white" strokeWidth="1" />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#bg-grid-v2)" />
+        </svg>
+      </div>
 
-      <div className="max-w-[1600px] mx-auto">
+      {/* Hero Section - Split Blade V2 */}
+      <div className="snap-section">
+        <VerticalHero
+          title="Our Verticals"
+          subtitle="Integrated expertise across the entire textile value chain, from raw fiber to retail-ready garments."
+          image="https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_8gdua58gdua58gdu.png"
+        />
+      </div>
+
+      {/* Vertical Sections - Metallic Plates V2 */}
+      <div className="relative z-10">
         {verticals.map((vertical, index) => (
-          <VerticalCard 
-            key={vertical.id}
-            index={index}
-            title={vertical.title}
-            description={vertical.description}
-            image={vertical.image}
-            reversed={index % 2 !== 0}
-            onClick={() => onVerticalClick(vertical.id)}
-          />
+          <div key={vertical.id} className="snap-section">
+            <VerticalCard
+              index={index}
+              title={vertical.title}
+              description={vertical.description}
+              image={vertical.image}
+              reversed={index % 2 !== 0}
+              onClick={() => onVerticalClick(vertical.id)}
+            />
+          </div>
         ))}
       </div>
 
-      {/* Bottom CTA */}
-      <section className="py-20 lg:py-48 px-4 sm:px-6 bg-slate-900 text-white text-center overflow-hidden relative">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <img 
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=2000" 
-            alt="Infrastructure" 
-            className="w-full h-full object-cover grayscale"
-            referrerPolicy="no-referrer"
-          />
-        </div>
-        <div className="relative z-10 max-w-4xl mx-auto">
+      {/* Bottom CTA - Premium Chrome Architectural Design */}
+      <section className="py-48 lg:py-80 px-4 sm:px-6 bg-[#0A0A0A] text-center overflow-hidden relative z-10 snap-section">
+        <div className="max-w-7xl mx-auto relative group">
+
+          {/* Background Highlight */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-slate-500/10 blur-[160px] rounded-full pointer-events-none" />
+
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h2 className="text-3xl sm:text-4xl lg:text-7xl font-serif font-bold mb-6 lg:mb-12 leading-tight">A Legacy of <br /><span className="italic font-light text-indigo-400">Integrated Excellence</span></h2>
-            <p className="text-base sm:text-xl lg:text-2xl text-slate-300 font-medium mb-8 lg:mb-16 max-w-2xl mx-auto leading-relaxed">
-              Our strength lies in our vertical integration, allowing us to maintain absolute control over quality, speed, and innovation at every stage.
+            <span className="text-[10px] font-bold uppercase tracking-[0.8em] text-slate-500 mb-16 block">Ready for the Next Era</span>
+
+            <h2 className="text-6xl sm:text-8xl lg:text-[12rem] font-serif font-light mb-16 leading-[0.9] text-white tracking-tighter">
+              A Legacy of <br />
+              <span className="italic font-light text-slate-400/60 font-serif">Deep Integration</span>
+            </h2>
+
+            <p className="text-xl sm:text-2xl lg:text-3xl text-slate-500 font-medium mb-24 max-w-3xl mx-auto leading-relaxed font-serif italic">
+              "We don't just manufacture; we engineer the future of textiles through absolute control over every stage of the journey."
             </p>
-            <button className="bg-white text-slate-900 px-8 py-4 sm:px-12 sm:py-6 rounded-full font-bold text-xs sm:text-sm uppercase tracking-wider hover:bg-indigo-500 hover:text-white transition-all shadow-2xl">
-              Partner with Kudu Group
+
+            {/* Chrome Signature Button */}
+            <button className="relative group overflow-hidden bg-white text-black px-16 py-8 rounded-none font-bold text-xs uppercase tracking-[0.5em] transition-all hover:scale-105 shadow-[0_40px_80px_rgba(255,255,255,0.1)]">
+              <span className="relative z-10">Start a Partnership</span>
+              {/* Silver Slide */}
+              <div className="absolute inset-0 bg-slate-200 -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-[0.22, 1, 0.36, 1]" />
             </button>
+
+            {/* Minimalist Footnote */}
+            <div className="mt-24 pt-24 border-t border-white/5 flex flex-col lg:flex-row items-center justify-between gap-8 opacity-20">
+              <span className="text-[9px] tracking-[0.4em] uppercase font-bold text-white">Est. 1952</span>
+              <span className="text-[9px] tracking-[0.4em] uppercase font-bold text-white">Global Manufacturing Excellence</span>
+              <span className="text-[9px] tracking-[0.4em] uppercase font-bold text-white">Sustainability Driven</span>
+            </div>
           </motion.div>
         </div>
       </section>

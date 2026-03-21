@@ -17,6 +17,8 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
 import ProductDetail from './components/ProductDetail';
+import SmoothScroll from './components/SmoothScroll';
+
 import InvestorRelationsPage, { InvestorSubPage } from './components/InvestorRelationsPage';
 import CSR from './components/CSR';
 import Visionaries from './components/Visionaries';
@@ -38,8 +40,8 @@ import InfrastructureCapabilities from './components/verticals/InfrastructureCap
 
 const WavyBackground = () => (
   <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-40">
-    <svg 
-      viewBox="0 0 1440 600" 
+    <svg
+      viewBox="0 0 1440 600"
       preserveAspectRatio="none"
       className="absolute top-1/2 left-0 -translate-y-1/2 w-[120%] h-[150%] -ml-[10%]"
     >
@@ -82,15 +84,15 @@ const MobileMenuItem: React.FC<MobileMenuItemProps> = ({ item, onNavClick, menuI
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <motion.li 
-      key={item.id} 
+    <motion.li
+      key={item.id}
       variants={menuItemVariants}
       className="group"
     >
       {item.isAccordion ? (
         <div className="space-y-4">
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
+          <button
+            onClick={() => setIsOpen(!isOpen)}
             className="w-full flex items-center justify-between group-hover:text-black/40 transition-colors text-black text-xl lg:text-3xl font-serif font-light tracking-tight text-left"
           >
             <span className="relative">{item.name}</span>
@@ -118,14 +120,14 @@ const MobileMenuItem: React.FC<MobileMenuItemProps> = ({ item, onNavClick, menuI
           </AnimatePresence>
         </div>
       ) : (
-        <button 
-          onClick={() => onNavClick(item.id)} 
+        <button
+          onClick={() => onNavClick(item.id)}
           className="w-full flex items-center justify-between group-hover:text-black/40 transition-colors text-black text-xl lg:text-3xl font-serif font-light tracking-tight text-left"
         >
           <span className="relative">
             {item.name}
-            <motion.span 
-              className="absolute -bottom-1 left-0 h-px bg-black/30" 
+            <motion.span
+              className="absolute -bottom-1 left-0 h-px bg-black/30"
               initial={{ width: 0 }}
               whileHover={{ width: '100%' }}
               transition={{ duration: 0.4 }}
@@ -168,7 +170,7 @@ const App: React.FC = () => {
     if (!isLoading && !selectedProduct) {
       const sections = gsap.utils.toArray('.reveal-section');
       sections.forEach((section: any) => {
-        gsap.fromTo(section, 
+        gsap.fromTo(section,
           { opacity: 0, y: 50 },
           {
             opacity: 1, y: 0,
@@ -186,7 +188,7 @@ const App: React.FC = () => {
 
   const handleNavClick = (id: string, subPage?: string) => {
     setIsMenuOpen(false);
-    
+
     if (id === 'home') {
       handleBackToHome();
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -237,12 +239,12 @@ const App: React.FC = () => {
     }
 
     setIsTransitioning(true);
-    
+
     // Smooth scroll and end transition
     setTimeout(() => {
       const el = id === 'footer' ? document.querySelector('footer') : document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
-      
+
       setTimeout(() => {
         setIsTransitioning(false);
       }, 2500);
@@ -317,7 +319,7 @@ const App: React.FC = () => {
       setShowPrivacy(page === 'privacy');
       setShowTerms(page === 'terms');
       setShowWholesale(page === 'wholesale');
-      
+
       setShowSustainability(false);
       setShowContact(false);
       setShowInvestorRelations(false);
@@ -328,7 +330,7 @@ const App: React.FC = () => {
     }, 3500);
   };
 
-  const handleBackToHome = () => { 
+  const handleBackToHome = () => {
     setIsTransitioning(true);
     setTimeout(() => {
       setSelectedProduct(null);
@@ -345,23 +347,23 @@ const App: React.FC = () => {
 
   const menuVariants: Variants = {
     hidden: { x: '100%', opacity: 0 },
-    visible: { 
-      x: 0, 
+    visible: {
+      x: 0,
       opacity: 1,
-      transition: { 
-        type: 'spring', 
-        damping: 30, 
+      transition: {
+        type: 'spring',
+        damping: 30,
         stiffness: 150,
         staggerChildren: 0.1,
         delayChildren: 0.2
       }
     },
-    exit: { 
-      x: '100%', 
+    exit: {
+      x: '100%',
       opacity: 0,
-      transition: { 
-        type: 'spring', 
-        damping: 35, 
+      transition: {
+        type: 'spring',
+        damping: 35,
         stiffness: 200,
         staggerChildren: 0.05,
         staggerDirection: -1
@@ -377,17 +379,19 @@ const App: React.FC = () => {
 
   return (
     <div className="relative min-h-screen text-black" ref={mainRef}>
+      <SmoothScroll />
       <AnimatePresence>
+
         {isLoading && <LoadingScreen key="initial-loader" />}
         {isTransitioning && <LoadingScreen key="transition-loader" isTransition={true} />}
       </AnimatePresence>
 
-      <Header 
-        isMenuOpen={isMenuOpen} 
-        setIsMenuOpen={setIsMenuOpen} 
-        onNavClick={handleNavClick} 
+      <Header
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
+        onNavClick={handleNavClick}
       />
-      
+
       <main className={`relative z-10 transition-opacity duration-700 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
         <AnimatePresence mode="wait">
           {!selectedProduct && !showSustainability && !showContact && !showInvestorRelations && !showVerticals && !showPrivacy && !showTerms && !showWholesale ? (
@@ -397,14 +401,18 @@ const App: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <Hero startCounting={!isLoading} onNavClick={handleNavClick} />
-              
+              <div className="snap-section">
+                <Hero startCounting={!isLoading} onNavClick={handleNavClick} />
+              </div>
+
+
               <div className="relative py-5 z-30">
                 <PartnerMarquee />
               </div>
 
               {/* Vision Statement Section - Now with Wavy Background */}
-              <section className="reveal-section py-24 lg:py-42 px-6 bg-black relative overflow-hidden">
+              <section className="reveal-section snap-section py-24 lg:py-42 px-6 bg-black relative overflow-hidden">
+
                 <WavyBackground />
                 <div className="max-w-4xl mx-auto text-center relative z-10">
                   <Quote size={56} className="mx-auto text-white/50 mb-10" />
@@ -416,40 +424,47 @@ const App: React.FC = () => {
                   </div>
                 </div>
               </section>
-              
-              <section id="capabilities" className="reveal-section px-6 pt-12 pb-20 lg:pt-24 lg:pb-32">
+
+              <section id="capabilities" className="reveal-section snap-section px-6 pt-12 pb-20 lg:pt-24 lg:pb-32">
+
                 <BusinessVerticals />
               </section>
 
-              <section id="brands" className="px-6 py-4 lg:py-0">
+              <section id="brands" className="snap-section px-6 py-4 lg:py-0">
+
                 <BrandsSection onProductClick={handleProductClick} />
               </section>
 
-              <Visionaries />
+              <div className="snap-section">
+                <Visionaries />
+              </div>
 
-              <section id="csr" className="reveal-section px-6 py-20 lg:py-32">
+
+              <section id="csr" className="reveal-section snap-section px-6 py-20 lg:py-32">
+
                 <CSR onLearnMore={handleSustainabilityClick} />
               </section>
 
-              <section id="testimonials" className="reveal-section px-6 py-20 lg:py-32 bg-slate-50/50 rounded-[50px] mx-6 mb-24 overflow-hidden relative shadow-sm border border-black/5">
+              <section id="testimonials" className="reveal-section snap-section px-6 py-20 lg:py-32 bg-slate-50/50 rounded-[50px] mx-6 mb-24 overflow-hidden relative shadow-sm border border-black/5">
+
                 <Testimonials />
               </section>
             </motion.div>
           ) : showSustainability ? (
-            <SustainabilityPage 
+            <SustainabilityPage
               key="sustainability-view"
-              onBack={handleBackToHome} 
+              onBack={handleBackToHome}
             />
           ) : showContact ? (
-            <ContactPage 
+            <ContactPage
               key="contact-view"
-              onBack={handleBackToHome} 
+              onBack={handleBackToHome}
             />
           ) : showInvestorRelations ? (
-            <InvestorRelationsPage 
+            <InvestorRelationsPage
               key="investor-view"
               initialSubPage={irSubPage}
-              onBack={handleBackToHome} 
+              onBack={handleBackToHome}
             />
           ) : showVerticals ? (
             <div key="verticals-view">
@@ -468,22 +483,25 @@ const App: React.FC = () => {
           ) : showWholesale ? (
             <WholesaleTerms key="wholesale-view" onBack={handleBackToHome} />
           ) : (
-            <ProductDetail 
+            <ProductDetail
               key="detail-view"
-              product={selectedProduct!} 
-              onBack={handleBackToHome} 
+              product={selectedProduct!}
+              onBack={handleBackToHome}
             />
           )}
         </AnimatePresence>
       </main>
 
-      <Footer onNavClick={handleNavClick} />
+      <div className="snap-section">
+        <Footer onNavClick={handleNavClick} />
+      </div>
+
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -499,46 +517,50 @@ const App: React.FC = () => {
             >
               <div className="p-8 lg:p-12 flex items-center justify-between border-b border-slate-50">
                 <div>
-                   <h2 className="font-serif text-[10px] font-bold text-slate-400 uppercase tracking-widest">Explore</h2>
-                   <div className="h-px w-8 bg-indigo-600 mt-2" />
+                  <h2 className="font-serif text-[10px] font-bold text-slate-400 uppercase tracking-widest">Explore</h2>
+                  <div className="h-px w-8 bg-indigo-600 mt-2" />
                 </div>
-                <button 
-                  onClick={() => setIsMenuOpen(false)} 
+                <button
+                  onClick={() => setIsMenuOpen(false)}
                   className="p-2 hover:bg-slate-100 rounded-full transition-all active:scale-90"
                 >
                   <X size={24} strokeWidth={1.5} className="text-slate-400" />
                 </button>
               </div>
-              
+
               <div className="flex-grow overflow-y-auto custom-scrollbar p-8 lg:p-12">
                 <ul className="space-y-6 lg:space-y-8">
                   {[
-                    { name: 'Our Verticals', id: 'verticals', isAccordion: true, subItems: [
-                      { name: 'Fabric Production', sub: 'fabric-production' },
-                      { name: 'Printing & Processing', sub: 'printing-processing' },
-                      { name: 'Garment Manufacturing', sub: 'garment-manufacturing' },
-                      { name: 'Embroidery & Finishing', sub: 'embroidery-finishing' },
-                      { name: 'Protective Textiles', sub: 'protective-textiles' },
-                      { name: 'Infrastructure', sub: 'infrastructure-capabilities' }
-                    ]},
-                    { name: 'Investors', id: 'investor-relations', isAccordion: true, subItems: [
-                      { name: 'Financials', sub: 'financials' },
-                      { name: 'Annual Reports', sub: 'annual-reports' },
-                      { name: 'Announcements', sub: 'announcements' },
-                      { name: 'Investor Info', sub: 'info' },
-                      { name: 'Governance', sub: 'governance' },
-                      { name: 'Contact', sub: 'contact' }
-                    ]},
+                    {
+                      name: 'Our Verticals', id: 'verticals', isAccordion: true, subItems: [
+                        { name: 'Fabric Production', sub: 'fabric-production' },
+                        { name: 'Printing & Processing', sub: 'printing-processing' },
+                        { name: 'Garment Manufacturing', sub: 'garment-manufacturing' },
+                        { name: 'Embroidery & Finishing', sub: 'embroidery-finishing' },
+                        { name: 'Protective Textiles', sub: 'protective-textiles' },
+                        { name: 'Infrastructure', sub: 'infrastructure-capabilities' }
+                      ]
+                    },
+                    {
+                      name: 'Investors', id: 'investor-relations', isAccordion: true, subItems: [
+                        { name: 'Financials', sub: 'financials' },
+                        { name: 'Annual Reports', sub: 'annual-reports' },
+                        { name: 'Announcements', sub: 'announcements' },
+                        { name: 'Investor Info', sub: 'info' },
+                        { name: 'Governance', sub: 'governance' },
+                        { name: 'Contact', sub: 'contact' }
+                      ]
+                    },
                     { name: 'Our Team', id: 'visionaries' },
                     { name: 'D2C Ventures', id: 'brands' },
                     { name: 'Sustainability', id: 'sustainability' },
                     { name: 'Contact Us', id: 'contact' }
                   ].map((item) => (
-                    <MobileMenuItem 
-                      key={item.id} 
-                      item={item} 
-                      onNavClick={handleNavClick} 
-                      menuItemVariants={menuItemVariants} 
+                    <MobileMenuItem
+                      key={item.id}
+                      item={item}
+                      onNavClick={handleNavClick}
+                      menuItemVariants={menuItemVariants}
                     />
                   ))}
                 </ul>

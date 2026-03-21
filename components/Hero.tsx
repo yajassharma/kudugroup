@@ -70,7 +70,7 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
                 showBorder={false}
                 className="inline-flex !mx-0 pr-1"
               >
-                <span className="font-light italic text-transparent pr-1">LEGACY</span>
+                <span className="font-bold italic text-transparent pr-1">LEGACY</span>
               </GradientText>
             </h1>
 
