@@ -20,20 +20,19 @@ const ContactView: React.FC<ContactViewProps> = ({ onBack, onLanding }) => {
 
   return (
     <div className="bg-white min-h-screen pb-32">
-      <SectionHero 
-        title="Investor Contact" 
+      <SectionHero
+        title="Investor Contact"
         subtitle="Direct channels for shareholder queries and regulatory compliance."
         image="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=2000"
       />
       <Breadcrumbs onBack={onBack} onLanding={onLanding} currentSubPage="contact" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-10 sm:mt-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-24">
+        <div className="flex flex-wrap justify-center gap-6 sm:gap-8 mb-12 sm:mb-24">
           {[
-            { title: 'Investor Relations Officer', name: 'Mr. Aman Sharma', designation: 'Head - Investor Relations', phone: '+91 (161) 500 1234', email: 'investors@kudugroup.com', address: 'B - XXXII , 1106/2, Turn Ghelewal, Rahon Road, Ludhiana - 141007 (PB.)' },
-            { title: 'Compliance Officer', name: 'Ms. Priya Mehta', designation: 'Company Secretary', phone: '+91 (161) 500 5678', email: 'cs@kudugroup.com', address: 'B - XXXII , 1106/2, Turn Ghelewal, Rahon Road, Ludhiana - 141007 (PB.)' },
-            { title: 'Registrar & Transfer Agent', name: 'Link Intime India Pvt. Ltd.', designation: 'Noble Heights, 1st Floor', phone: '+91 (22) 4918 6000', email: 'delhi@linkintime.co.in', address: 'C-101, 247 Park, LBS Marg, Vikhroli (West), Mumbai' },
+            { title: 'Investor Relations Officer', name: 'Mr. Gaurav Gupta', designation: 'Head - Investor Relations', phone: '+91 (161) 500 1234', email: 'investors@kudugroup.com', address: 'B - XXXII , 1106/2, Turn Ghelewal, Rahon Road, Ludhiana - 141007 (PB.)' },
+            { title: 'Compliance Officer', name: 'Mr. Pavan Kumar Gupta', designation: 'Company Secretary', phone: '+91 (161) 500 5678', email: 'cs@kudugroup.com', address: 'B - XXXII , 1106/2, Turn Ghelewal, Rahon Road, Ludhiana - 141007 (PB.)' },
           ].map((contact, idx) => (
-            <div key={idx} className="bg-white p-6 sm:p-8 lg:p-10 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md transition-all">
+            <div key={idx} className="w-full md:w-[calc(50%-1rem)] max-w-md bg-white p-6 sm:p-8 lg:p-10 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md transition-all">
               <h4 className="text-xs font-bold text-indigo-600 mb-4 sm:mb-6">{contact.title}</h4>
               <div className="space-y-4 sm:space-y-6">
                 <div>
@@ -68,7 +67,7 @@ const ContactView: React.FC<ContactViewProps> = ({ onBack, onLanding }) => {
             </div>
 
             {formState === 'success' ? (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="py-10 text-center"
@@ -80,7 +79,7 @@ const ContactView: React.FC<ContactViewProps> = ({ onBack, onLanding }) => {
                 <p className="text-slate-500 max-w-sm mx-auto">
                   Your query has been recorded. Our Investor Relations team will respond within 3 business days.
                 </p>
-                <button 
+                <button
                   onClick={() => setFormState('idle')}
                   className="mt-10 text-indigo-600 font-bold text-sm hover:underline"
                 >
@@ -107,7 +106,7 @@ const ContactView: React.FC<ContactViewProps> = ({ onBack, onLanding }) => {
                   <label className="text-xs font-bold text-slate-400 ml-1">Query Details</label>
                   <textarea required rows={5} className="w-full bg-white border border-slate-100 rounded-2xl px-4 py-3 sm:px-6 sm:py-4 outline-none focus:border-indigo-600 transition-colors font-medium resize-none text-sm sm:text-base"></textarea>
                 </div>
-                <button 
+                <button
                   disabled={formState === 'submitting'}
                   type="submit"
                   className="w-full bg-slate-800 text-white rounded-2xl py-4 sm:py-5 font-bold text-sm hover:bg-indigo-600 transition-all duration-300 flex items-center justify-center space-x-3 group"
