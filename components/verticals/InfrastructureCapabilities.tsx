@@ -7,15 +7,17 @@ import { motion } from 'framer-motion';
 interface InfrastructureCapabilitiesProps {
   onBack: () => void;
   onNext: () => void;
+  onContactClick?: () => void;
 }
 
-const InfrastructureCapabilities: React.FC<InfrastructureCapabilitiesProps> = ({ onBack, onNext }) => {
+const InfrastructureCapabilities: React.FC<InfrastructureCapabilitiesProps> = ({ onBack, onNext, onContactClick }) => {
   return (
-    <VerticalLayout 
-      title="Infrastructure & Capabilities" 
+    <VerticalLayout
+      title="Infrastructure & Capabilities"
       subtitle="A massive technology ecosystem featuring knitting capacity, processing lines, and dedicated R&D labs."
-      image="https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_9chok19chok19cho.png"
+      image="https://ik.imagekit.io/yajas/WhatsApp%20Image%202026-03-10%20at%2013.41.31.jpeg"
       onBack={onBack}
+      onContactClick={onContactClick}
       nextVertical={{ title: 'Fabric Production', onClick: onNext }}
     >
       <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 items-start lg:items-center mb-16 lg:mb-24">
@@ -23,9 +25,9 @@ const InfrastructureCapabilities: React.FC<InfrastructureCapabilitiesProps> = ({
           <h2 className="text-2xl sm:text-3xl font-serif font-medium text-slate-900 mb-4 leading-tight">The Industrial Ecosystem</h2>
         </div>
         <div className="order-2 lg:order-2 w-full relative aspect-[4/3] lg:aspect-[3/4] rounded-xl lg:rounded-2xl overflow-hidden shadow-sm border border-slate-100">
-          <img 
-            src="https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_dycolsdycolsdyco.png" 
-            alt="Infrastructure and Capabilities" 
+          <img
+            src="https://ik.imagekit.io/yajas/Gemini_Generated_Image_86asmj86asmj86as.png"
+            alt="Infrastructure and Capabilities"
             className="w-full h-full object-cover"
           />
         </div>
@@ -36,8 +38,7 @@ const InfrastructureCapabilities: React.FC<InfrastructureCapabilitiesProps> = ({
           </p>
           <div className="grid grid-cols-2 gap-6 lg:gap-8">
             {[
-              { label: 'Total Area', value: '1M+ Sq. Ft.' },
-              { label: 'R&D Labs', value: '3 Centers' },
+              { label: 'R&D Labs', value: 'Inhouse' },
               { label: 'Power Backup', value: '100% Redundant' },
               { label: 'Automation', value: 'Industry 4.0' },
             ].map((stat, idx) => (
@@ -55,10 +56,10 @@ const InfrastructureCapabilities: React.FC<InfrastructureCapabilitiesProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {[
             { title: 'Knitting Capacity', desc: 'A massive fleet of circular and flat knitting machines capable of high-volume, precision fabric production.' },
-            { title: 'Processing Lines', desc: 'Advanced dyeing and finishing lines with automated color management and eco-friendly processing.' },
+            { title: 'Processing Lines', desc: 'Advanced dyeing and finishing lines with automated color management and precision processing.' },
             { title: 'Raising & Brushing', desc: 'Specialized units for creating high-performance fleece and soft-textured fabrics.' },
           ].map((item, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               whileHover={{ y: -5 }}
               className="bg-slate-50 p-6 lg:p-8 rounded-xl lg:rounded-2xl border border-slate-100 transition-all duration-300"
@@ -77,7 +78,7 @@ const InfrastructureCapabilities: React.FC<InfrastructureCapabilitiesProps> = ({
         <div className="relative z-10 max-w-2xl">
           <h3 className="text-xl sm:text-2xl lg:text-3xl font-serif font-medium text-slate-900 mb-4 lg:mb-6">Future-Ready Infrastructure</h3>
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6 lg:mb-8">
-            We are continuously investing in Industry 4.0 technologies, including real-time monitoring, AI-driven quality control, and automated logistics.
+            We are continuously investing in Industry 4.0 technologies, including real-time monitoring, automated quality control, and advanced logistics.
           </p>
           <ul className="space-y-3 lg:space-y-4">
             {['ERP-integrated production management', 'Automated material handling systems', 'Centralized quality control dashboard', 'Energy-efficient building management'].map((item, idx) => (

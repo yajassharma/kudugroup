@@ -61,8 +61,8 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
             transition={{ duration: 0.9, ease: "easeOut" }}
           >
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl lg:text-8xl font-serif font-bold leading-tight text-slate-900 mb-2 flex flex-wrap items-center justify-center">
-              <span className="mr-2 lg:mr-4">KUDU</span>
+            <h1 className="text-5xl md:text-5xl lg:text-8xl font-serif font-bold leading-tight text-slate-900 mb-2 flex flex-wrap items-center justify-center">
+              <span className="mr-1 lg:mr-4">KUDU</span>
 
               <GradientText
                 colors={["#FF9FFC", "#BFC1C2", "#0042aa"]}
@@ -76,7 +76,7 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
 
             {/* Tagline */}
             <div className="flex items-center justify-center space-x-2 lg:space-x-3 text-[8px] lg:text-[14px] font-semibold text-slate-400 mb-4">
-              <span>• EST. 1952 • TEXTILE CO. •</span>
+              <span>• EST. 1969 • TEXTILE CO. •</span>
             </div>
 
             {/* Description */}
@@ -91,8 +91,8 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => onNavClick?.('visionaries')}
-                className="px-8 lg:px-10 py-4 rounded-full bg-slate-900 text-white text-[10px] lg:text-xs font-bold uppercase shadow-2xl hover:bg-indigo-600 transition-colors duration-500"
+                onClick={() => onNavClick?.('about')}
+                className="px-8 lg:px-10 py-4 rounded-full bg-slate-900 text-white text-[10px] lg:text-xs font-bold uppercase shadow-2xl hover:bg-slate-700 transition-colors duration-500"
               >
                 About Kudu
               </motion.button>
@@ -121,7 +121,7 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
           <div className="glass rounded-[32px] lg:rounded-[200px] p-6 lg:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.12),0_30px_80px_rgba(0,0,0,0.18)] border border-white/80 flex flex-col lg:flex-row justify-between items-center text-center gap-6 lg:gap-6 bg-white/450 backdrop-blur-0.5xl">
             <div className="flex-1 w-full lg:min-w-[120px]">
               <h4 className="text-3xl lg:text-6xl font-sans font-black text-slate-900">
-                <CountUp from={0} to={377} duration={2} startWhen={startCounting} />+
+                <CountUp from={0} to={350} duration={2} startWhen={startCounting} />+
               </h4>
               <p className="text-[9px] lg:text-[10px] font-bold text-black mt-1">
                 Tons Monthly
@@ -132,10 +132,10 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
 
             <div className="flex-1 w-full lg:min-w-[120px]">
               <h4 className="text-3xl lg:text-6xl font-sans font-black text-slate-900">
-                <CountUp from={0} to={500} duration={2} startWhen={startCounting} />K+
+                <CountUp from={0} to={400} duration={2} startWhen={startCounting} />K+
               </h4>
               <p className="text-[9px] lg:text-[10px] font-bold text-black mt-1">
-                Units Yearly
+                Units Monthy
               </p>
             </div>
 
@@ -143,7 +143,7 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
 
             <div className="flex-1 w-full lg:min-w-[120px]">
               <h4 className="text-3xl lg:text-6xl font-sans font-black text-slate-900">
-                <CountUp from={0} to={72} duration={2} startWhen={startCounting} />+
+                <CountUp from={0} to={57} duration={2} startWhen={startCounting} />+
               </h4>
               <p className="text-[9px] lg:text-[10px] font-bold text-black mt-1">
                 Years Legacy
@@ -160,10 +160,10 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
-          className="w-full overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] aspect-[4/3] lg:aspect-[28/12] min-h-[400px]"
+          className="w-full overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] aspect-video min-h-[500px] lg:min-h-[700px]"
         >
           <video
-            src="https://www.kuduonline.com/banner/video.mp4"
+            src="https://ik.imagekit.io/yajas/7d8ed606-7ddf-4675-9325-f7a7f3f51ff7.mp4"
             autoPlay
             muted
             loop

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { 
-  Sun, 
-  Droplets, 
-  Zap, 
-  Recycle, 
-  ArrowLeft, 
-  Battery, 
-  Globe, 
+import {
+  Sun,
+  Droplets,
+  Zap,
+  Recycle,
+  ArrowLeft,
+  Battery,
+  Globe,
   Leaf,
   Wind,
   CheckCircle2,
@@ -36,15 +36,15 @@ const SustainabilityPage: React.FC<SustainabilityPageProps> = ({ onBack }) => {
       title: 'Energy Efficiency',
       icon: <Zap className="text-emerald-500" size={24} />,
       description: 'Optimizing every kilowatt through smart manufacturing and high-efficiency machinery.',
-      metrics: ['30% Reduction in Grid Reliance', 'AI-Driven Power Management'],
+      metrics: ['30% Reduction in Grid Reliance', 'Intelligent Energy Load Balancing'],
       image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&q=80&w=800"
     },
     {
       id: 'solar',
       title: 'Renewable Power',
       icon: <Sun className="text-emerald-500" size={24} />,
-      description: 'Harnessing the sun to power our future. Large-scale solar installations across all units.',
-      metrics: ['15MW+ Solar Capacity', 'Zero-Carbon Energy Goals'],
+      description: 'Harnessing the sun to power our future. Over 50% of our total energy consumption is met through green power sources.',
+      metrics: ['50%+ Green Power Generation', '15MW Solar Installation'],
       image: "https://images.unsplash.com/photo-1509391366360-fe5bb58583bb?auto=format&fit=crop&q=80&w=800"
     },
     {
@@ -59,18 +59,18 @@ const SustainabilityPage: React.FC<SustainabilityPageProps> = ({ onBack }) => {
       id: 'waste',
       title: 'Circular Economy',
       icon: <Recycle className="text-emerald-500" size={24} />,
-      description: 'Transforming waste into wealth. Comprehensive recycling programs for fabric and materials.',
-      metrics: ['95% Waste Diversion', 'Upcycled Textile Programs'],
+      description: 'Transforming waste into wealth. We specialize in dealing with Recycled Yarn and circular material programs.',
+      metrics: ['Recycled Yarn Specialists', '95% Waste Diversion'],
       image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&q=80&w=800"
     }
   ];
 
   return (
     <div className="min-h-screen bg-[#F9F9F7] text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
-      
+
       {/* Immersive Hero */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-white">
-        <motion.div 
+        <motion.div
           style={{ opacity, scale }}
           className="container mx-auto px-6 relative z-10 text-center"
         >
@@ -79,13 +79,13 @@ const SustainabilityPage: React.FC<SustainabilityPageProps> = ({ onBack }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-8xl font-serif leading-[1] lg:leading-[0.9] tracking-tight mb-6 lg:mb-8">
+            <h1 className="text-4xl lg:text-5xl xl:text-8xl font-serif font-bold text-slate-900 leading-[0.9] mb-8 uppercase tracking-tighter">
               Sustainability <br />
-              <span className="text-emerald-600 italic">is Responsibility</span>
+              <span className="italic font-light lowercase text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-green-600 to-emerald-900 leading-tight block mt-2">is Responsibility</span>
             </h1>
-            <p className="max-w-2xl mx-auto text-base sm:text-lg lg:text-xl text-slate-500 font-light leading-relaxed px-4">
-              At Kudu, we don't just manufacture textiles; we engineer a sustainable future. 
-              Our commitment to the planet is woven into every fiber of our operations.
+            <p className="max-w-2xl mx-auto text-base sm:text-lg lg:text-xl text-slate-500 font-medium leading-relaxed px-4">
+              At Kudu, we don't just manufacture textiles; we engineer a sustainable legacy.
+              Our commitment to the planet is woven into every narrative of our operations.
             </p>
           </motion.div>
         </motion.div>
@@ -93,7 +93,7 @@ const SustainabilityPage: React.FC<SustainabilityPageProps> = ({ onBack }) => {
         {/* Background Elements */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/50 to-[#F9F9F7]" />
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.05 }}
             transition={{ duration: 2 }}
@@ -119,7 +119,7 @@ const SustainabilityPage: React.FC<SustainabilityPageProps> = ({ onBack }) => {
             </h2>
             <div className="space-y-6 lg:space-y-8">
               <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-                We believe that industrial growth and environmental preservation are not mutually exclusive. 
+                We believe that industrial growth and environmental preservation are not mutually exclusive.
                 Our strategy focuses on four core pillars that define our ecological footprint.
               </p>
               <div className="grid grid-cols-2 gap-6">
@@ -128,13 +128,13 @@ const SustainabilityPage: React.FC<SustainabilityPageProps> = ({ onBack }) => {
                   <div className="text-xs font-bold uppercase tracking-wider text-slate-400">Water Recycled</div>
                 </div>
                 <div className="p-6 bg-white rounded-2xl border border-slate-100 shadow-sm">
-                  <div className="text-3xl font-serif text-emerald-600 mb-2">15MW</div>
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-400">Solar Power</div>
+                  <div className="text-3xl font-serif text-emerald-600 mb-2">50%+</div>
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-400">Green Power</div>
                 </div>
               </div>
             </div>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -142,9 +142,9 @@ const SustainabilityPage: React.FC<SustainabilityPageProps> = ({ onBack }) => {
             transition={{ duration: 1 }}
             className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl"
           >
-            <img 
-              src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1200" 
-              alt="Nature and Industry" 
+            <img
+              src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1200"
+              alt="Nature and Industry"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />
@@ -195,9 +195,9 @@ const SustainabilityPage: React.FC<SustainabilityPageProps> = ({ onBack }) => {
       {/* Advanced Visual Section - Parallax Image with Stats */}
       <section className="relative py-20 sm:py-32 lg:py-40 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src="https://ik.imagekit.io/yajas/factory3.jpg" 
-            alt="Sustainable Factory" 
+          <img
+            src="https://ik.imagekit.io/yajas/factory3.jpg"
+            alt="Sustainable Factory"
             className="w-full h-full object-cover opacity-20 grayscale"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#F9F9F7] via-[#F9F9F7]/90 to-transparent" />
@@ -248,38 +248,47 @@ const SustainabilityPage: React.FC<SustainabilityPageProps> = ({ onBack }) => {
         </div>
       </section>
 
-      {/* Innovation Cards */}
-      <section className="py-16 sm:py-24 container mx-auto px-4 sm:px-6">
-        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
-          <div className="lg:col-span-2 bg-emerald-900 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden group">
-            <div className="relative z-10 h-full flex flex-col justify-between">
-              <div>
-                <h3 className="text-2xl sm:text-3xl font-serif mb-3 sm:mb-4">The Future of Textiles</h3>
-                <p className="text-sm sm:text-base text-emerald-100/70 max-w-md leading-relaxed">
-                  We are investing in biodegradable fibers and natural dye technologies to further reduce our chemical footprint.
-                </p>
-              </div>
-              <motion.button 
-                whileHover={{ x: 10 }}
-                className="flex items-center space-x-2 text-emerald-400 font-bold text-sm mt-8"
-              >
-                <span>Learn about our R&D</span>
-                <ArrowRight size={16} />
-              </motion.button>
-            </div>
-            <Wind className="absolute -bottom-10 -right-10 text-emerald-800/20" size={300} />
-          </div>
-
-          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-100 shadow-sm flex flex-col justify-between">
-            <ShieldCheck className="text-emerald-600 mb-6 sm:mb-8" size={40} />
-            <div>
-              <h3 className="text-xl sm:text-2xl font-serif mb-3 sm:mb-4">Compliance & Ethics</h3>
-              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                Our facilities are certified by global standards for social and environmental compliance.
+      {/* Recycled Yarn Initiative - Premium Feature */}
+      <section className="py-24 sm:py-32 bg-slate-50 relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <h2 className="text-4xl lg:text-6xl font-serif leading-tight text-slate-900">
+                Pioneering the <br />
+                <span className="italic text-emerald-600">Recycled Yarn</span> Era
+              </h2>
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl">
+                We actively incorporate recycled yarns into our production processes to reduce environmental impact while maintaining the uncompromising quality Kudu is known for. This circular approach ensures that every garment produced tells a story of rebirth and responsibility.
               </p>
-            </div>
+              <div className="flex flex-wrap gap-2">
+                {['GRS Certified', 'Circular Design', 'Reduced Carbon Footprint'].map((tag, i) => (
+                  <span key={i} className="px-5 py-2 bg-white border border-slate-200 text-xs font-bold text-slate-500 uppercase shadow-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative aspect-video lg:aspect-square rounded-2xl overflow-hidden shadow-2xl"
+            >
+              <img
+                src="https://ik.imagekit.io/yajas/Gemini_Generated_Image_dabw22dabw22dabw.png"
+                alt="Recycled Yarn"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-emerald-900/10" />
+            </motion.div>
           </div>
         </div>
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-100/20 blur-3xl -z-10" />
       </section>
 
       {/* Final CTA */}
@@ -292,14 +301,11 @@ const SustainabilityPage: React.FC<SustainabilityPageProps> = ({ onBack }) => {
         >
           <h2 className="text-3xl sm:text-4xl lg:text-6xl font-serif mb-8 sm:mb-12">Ready to build a <br /><span className="text-emerald-600 italic">Greener Legacy?</span></h2>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button 
+            <button
               onClick={onBack}
-              className="w-full sm:w-auto px-8 py-4 sm:px-10 sm:py-5 rounded-full bg-slate-900 text-white font-bold text-sm sm:text-base hover:bg-emerald-600 transition-all duration-300 shadow-xl hover:shadow-emerald-200/50"
+              className="w-full sm:w-auto px-10 py-5 rounded-full bg-slate-900 text-white font-bold text-base hover:bg-emerald-600 transition-all duration-300 shadow-xl active:scale-95"
             >
-              Back to Home
-            </button>
-            <button className="w-full sm:w-auto px-8 py-4 sm:px-10 sm:py-5 rounded-full bg-white text-slate-900 font-bold text-sm sm:text-base border border-slate-200 hover:bg-slate-50 transition-all duration-300">
-              Download ESG Report
+              Return to Home
             </button>
           </div>
         </motion.div>

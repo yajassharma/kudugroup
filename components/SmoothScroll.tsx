@@ -16,6 +16,11 @@ const SmoothScroll = () => {
             infinite: false,
         });
 
+        (window as any).lenis = lenis;
+        (window as any).scrollToTop = () => {
+            lenis.scrollTo(0, { immediate: true });
+        };
+
         lenis.on('scroll', ScrollTrigger.update);
 
         gsap.ticker.add((time) => {
@@ -26,6 +31,8 @@ const SmoothScroll = () => {
 
         return () => {
             lenis.destroy();
+            delete (window as any).lenis;
+            delete (window as any).scrollToTop;
             gsap.ticker.remove((time) => {
                 lenis.raf(time * 1000);
             });

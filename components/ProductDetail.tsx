@@ -1,15 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, CheckCircle, Package, Shield, Share2, Globe, Eye } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Package, Shield, Globe, Eye } from 'lucide-react';
 import { BrandProduct } from './BrandsSection';
 
 interface ProductDetailProps {
   product: BrandProduct;
   onBack: () => void;
+  onNavClick?: (id: string) => void;
 }
 
-const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack }) => {
+const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack, onNavClick }) => {
   const [selectedImage, setSelectedImage] = useState(product.gallery[0]);
 
   // Scroll to top on mount
@@ -18,7 +19,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack }) => {
   }, []);
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -26,11 +27,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack }) => {
     >
       <div className="max-w-7xl mx-auto">
         {/* Navigation / Back Button */}
-        <button 
+        <button
           onClick={onBack}
           className="flex items-center space-x-3 mb-8 sm:mb-12 group"
         >
-          <div className="p-2 sm:p-3 bg-slate-900 text-white rounded-full group-hover:bg-indigo-600 transition-colors">
+          <div className="p-2 sm:p-3 bg-slate-900 text-white rounded-full group-hover:bg-slate-700 transition-colors">
             <ArrowLeft size={18} />
           </div>
           <span className="text-sm font-medium text-slate-500 group-hover:text-slate-900 transition-colors">
@@ -39,21 +40,18 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack }) => {
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-16 lg:gap-24">
-          
+
           {/* Left: Gallery Section */}
           <div className="lg:col-span-7 flex flex-col gap-4 sm:gap-6">
-            <motion.div 
+            <motion.div
               layoutId={`product-image-${product.name}`}
               className="aspect-[3/4] sm:aspect-square lg:aspect-[4/3] rounded-[32px] sm:rounded-[60px] overflow-hidden border-4 sm:border-[10px] border-slate-50 shadow-xl relative bg-slate-50"
             >
-              <img 
-                src={selectedImage} 
-                alt={product.name} 
-                className="w-full h-full object-contain mix-blend-multiply" 
+              <img
+                src={selectedImage}
+                alt={product.name}
+                className="w-full h-full object-contain mix-blend-multiply"
               />
-              <div className="absolute top-4 right-4 sm:top-8 sm:right-8 bg-white/80 backdrop-blur-md p-3 sm:p-4 rounded-full border border-white shadow-sm">
-                <Share2 size={18} className="text-slate-700" />
-              </div>
             </motion.div>
 
             <div className="grid grid-cols-3 gap-3 sm:gap-6">
@@ -75,11 +73,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack }) => {
             <div className="brand-divider justify-start mb-4 sm:mb-6">
               <div className="brand-diamond !ml-0"></div>
             </div>
-            
+
             <h3 className="text-[10px] sm:text-xs font-bold tracking-widest text-slate-400 uppercase mb-2 sm:mb-4">
               {product.category}
             </h3>
-            
+
             <h1 className="text-3xl sm:text-5xl lg:text-7xl font-serif font-bold text-slate-900 leading-tight mb-6 sm:mb-8">
               {product.name}
             </h1>
@@ -94,7 +92,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack }) => {
               <div className="flex flex-wrap gap-2 sm:gap-4">
                 {product.materials.map((mat, idx) => (
                   <div key={idx} className="flex items-center space-x-2 bg-slate-50 px-4 py-2 sm:px-5 sm:py-3 rounded-full border border-slate-100 shadow-sm">
-                    <CheckCircle size={14} className="text-indigo-600/60" />
+                    <CheckCircle size={14} className="text-slate-500" />
                     <span className="text-[9px] sm:text-[10px] font-bold text-slate-700 uppercase">{mat}</span>
                   </div>
                 ))}
@@ -118,14 +116,15 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack }) => {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 sm:gap-6">
-              <motion.button 
+              <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex-grow bg-slate-900 text-white px-6 py-4 sm:px-8 sm:py-5 rounded-full font-bold text-xs transition-all hover:bg-indigo-600 shadow-lg"
+                onClick={() => onNavClick?.('contact')}
+                className="flex-grow bg-slate-900 text-white px-6 py-4 sm:px-8 sm:py-5 rounded-full font-bold text-xs transition-all hover:bg-slate-700 shadow-lg"
               >
                 Inquire for Wholesale
               </motion.button>
-              
+
               {product.websiteStatus === 'live' && product.websiteUrl ? (
                 <a
                   href={product.websiteUrl}
@@ -133,7 +132,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack }) => {
                   rel="noopener noreferrer"
                   className="flex-grow sm:flex-grow-0 group/web relative inline-flex items-center justify-center space-x-2 px-6 py-4 sm:px-8 sm:py-5 rounded-full bg-white text-slate-900 border border-slate-200 text-xs font-bold transition-all duration-300 hover:bg-slate-50 shadow-sm active:scale-95"
                 >
-                  <Globe size={16} className="text-indigo-600" />
+                  <Globe size={16} className="text-slate-600" />
                   <span>Visit Website</span>
                 </a>
               ) : (
@@ -157,10 +156,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product, onBack }) => {
           <h2 className="text-2xl sm:text-4xl font-serif font-bold text-slate-900">Quality <span className="italic font-light text-slate-500">Certified</span></h2>
           <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-3 sm:mt-4">Standardized Industrial Production</p>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
-          {['ISO 9001', 'OEKO-TEX', 'WRAP', 'GOTS'].map((cert) => (
-            <div key={cert} className="bg-slate-50 border border-slate-100 p-6 sm:p-8 rounded-2xl sm:rounded-[40px] flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer">
-              <span className="text-base sm:text-xl lg:text-2xl font-serif font-bold text-slate-400">{cert}</span>
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-8 items-center">
+          {['ISO 9001', 'SEDEX'].map((cert) => (
+            <div key={cert} className="bg-slate-50 border border-slate-100 p-6 sm:p-8 rounded-2xl sm:rounded-[40px] flex items-center justify-center grayscale hover:grayscale-0 transition-all cursor-pointer min-w-[160px] sm:min-w-[200px]">
+              <span className="text-base sm:text-xl lg:text-2xl font-serif font-bold text-slate-400 items-center justify-center">{cert}</span>
             </div>
           ))}
         </div>

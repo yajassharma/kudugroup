@@ -39,7 +39,7 @@ const VerticalHero: React.FC<VerticalHeroProps> = ({
                 transition={{ duration: 1.2, delay: 0.5 }}
                 className="h-px bg-gradient-to-r from-slate-400 to-transparent"
               />
-              <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-slate-400/60">Legacy Since 1952</span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-slate-400/60">Legacy Since 1969</span>
             </div>
 
             <h1 className="text-6xl sm:text-7xl lg:text-[10rem] font-serif font-light text-white mb-10 leading-[0.85] tracking-tight">

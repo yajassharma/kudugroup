@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, Download } from 'lucide-react';
-import { SectionHero, Breadcrumbs } from './InvestorShared';
+import { SectionHero, Breadcrumbs, DisclosureModal } from './InvestorShared';
 
 interface FinancialsViewProps {
   onBack: () => void;
@@ -11,6 +11,7 @@ interface FinancialsViewProps {
 
 const FinancialsView: React.FC<FinancialsViewProps> = ({ onBack, onLanding }) => {
   const [activeTab, setActiveTab] = useState('results');
+  const [isDisclosureOpen, setIsDisclosureOpen] = useState(false);
   const tabs = [
     { id: 'results', label: 'Quarterly Financial Results' },
     { id: 'presentations', label: 'Investor Presentations' },
@@ -35,20 +36,20 @@ const FinancialsView: React.FC<FinancialsViewProps> = ({ onBack, onLanding }) =>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-6 sm:mt-12">
         {/* Tab Navigation */}
-        <div className="flex flex-wrap border-b border-slate-100 mb-6 sm:mb-12">
+        <div className="flex flex-nowrap overflow-x-auto hide-scrollbar border-b border-slate-100 mb-6 sm:mb-12 -mx-4 px-4 sm:mx-0 sm:px-0">
           {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-3 sm:px-6 sm:py-4 text-xs sm:text-sm font-semibold transition-all relative ${
-                activeTab === tab.id ? 'text-indigo-600' : 'text-slate-400 hover:text-slate-600'
+              className={`px-4 py-3 sm:px-6 sm:py-4 text-[11px] sm:text-sm font-bold transition-all relative whitespace-nowrap ${
+                activeTab === tab.id ? 'text-slate-900 font-bold' : 'text-slate-400 hover:text-slate-600 font-medium'
               }`}
             >
               {tab.label}
               {activeTab === tab.id && (
                 <motion.div 
                   layoutId="activeTab" 
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600" 
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-slate-900" 
                 />
               )}
             </button>
@@ -62,34 +63,39 @@ const FinancialsView: React.FC<FinancialsViewProps> = ({ onBack, onLanding }) =>
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="overflow-x-auto -mx-6 px-6 lg:mx-0 lg:px-0"
+              className="overflow-x-auto premium-scrollbar -mx-4 px-4 lg:mx-0 lg:px-0 rounded-2xl sm:rounded-[32px] border border-slate-100 lg:border-none"
             >
-              <table className="w-full text-left border-collapse min-w-[800px]">
+              <table className="w-full text-left border-collapse min-w-[600px] sm:min-w-[800px]">
                 <thead>
-                  <tr className="bg-slate-50 border-b border-slate-100">
-                    <th className="px-4 py-4 sm:px-8 sm:py-6 text-xs font-bold text-slate-400">Financial Year</th>
-                    <th className="px-4 py-4 sm:px-8 sm:py-6 text-xs font-bold text-slate-400">Q1</th>
-                    <th className="px-4 py-4 sm:px-8 sm:py-6 text-xs font-bold text-slate-400">Q2</th>
-                    <th className="px-4 py-4 sm:px-8 sm:py-6 text-xs font-bold text-slate-400">Q3</th>
-                    <th className="px-4 py-4 sm:px-8 sm:py-6 text-xs font-bold text-slate-400">Q4</th>
-                    <th className="px-4 py-4 sm:px-8 sm:py-6 text-xs font-bold text-slate-400">Full Year</th>
+                  <tr className="bg-slate-50/50 border-b border-slate-100">
+                    <th className="px-4 py-4 sm:px-8 sm:py-6 text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider">Financial Year</th>
+                    <th className="px-4 py-4 sm:px-8 sm:py-6 text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Q1</th>
+                    <th className="px-4 py-4 sm:px-8 sm:py-6 text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Q2</th>
+                    <th className="px-4 py-4 sm:px-8 sm:py-6 text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Q3</th>
+                    <th className="px-4 py-4 sm:px-8 sm:py-6 text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Q4</th>
+                    <th className="px-4 py-4 sm:px-8 sm:py-6 text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider text-right">Full Year</th>
                   </tr>
                 </thead>
                 <tbody>
                   {financialData.map((row, idx) => (
-                    <tr key={row.year} className={`border-b border-slate-50 hover:bg-slate-50/50 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/20'}`}>
-                      <td className="px-4 py-4 sm:px-8 sm:py-6 font-bold bg-gradient-to-br from-slate-900 to-slate-600 bg-clip-text text-transparent">{row.year}</td>
+                    <tr key={row.year} className={`border-b border-slate-50 hover:bg-slate-50/30 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/10'}`}>
+                      <td className="px-4 py-4 sm:px-8 sm:py-6 font-bold text-sm sm:text-base border-r border-slate-50/50 bg-gradient-to-br from-slate-900 to-slate-600 bg-clip-text text-transparent">{row.year}</td>
                       {['q1', 'q2', 'q3', 'q4'].map(q => (
-                        <td key={q} className="px-4 py-4 sm:px-8 sm:py-6">
-                          <button className="flex items-center text-indigo-600 hover:text-indigo-800 text-xs sm:text-sm font-medium group">
-                            <FileText size={14} className="mr-2 opacity-50 group-hover:opacity-100" />
-                            <span>View PDF</span>
-                            <Download size={12} className="ml-2 opacity-0 group-hover:opacity-100 transition-all" />
+                        <td key={q} className="px-2 py-4 sm:px-8 sm:py-6 text-center">
+                          <button 
+                            onClick={() => setIsDisclosureOpen(true)}
+                            className="inline-flex items-center text-slate-600 hover:text-slate-900 text-[11px] sm:text-sm font-medium group transition-colors"
+                          >
+                            <FileText size={14} className="mr-1.5 opacity-40 group-hover:opacity-100 transition-opacity" />
+                            <span>PDF</span>
                           </button>
                         </td>
                       ))}
-                      <td className="px-4 py-4 sm:px-8 sm:py-6">
-                        <button className="bg-slate-800 text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-indigo-600 transition-colors">
+                      <td className="px-4 py-4 sm:px-8 sm:py-6 text-right">
+                        <button 
+                          onClick={() => setIsDisclosureOpen(true)}
+                          className="bg-slate-900 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-[10px] sm:text-xs font-bold hover:bg-slate-800 transition-all active:scale-95 shadow-sm"
+                        >
                           Download
                         </button>
                       </td>
@@ -106,7 +112,7 @@ const FinancialsView: React.FC<FinancialsViewProps> = ({ onBack, onLanding }) =>
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="space-y-4"
+              className="space-y-3 sm:space-y-4"
             >
               {(activeTab === 'presentations' ? [
                 { title: 'Investor Presentation – Q1 FY 2025', date: 'August 14, 2025' },
@@ -121,12 +127,15 @@ const FinancialsView: React.FC<FinancialsViewProps> = ({ onBack, onLanding }) =>
                 { title: 'Earnings Call Transcript – Q4 FY 2024', date: 'May 30, 2024' },
                 { title: 'Earnings Call Transcript – Q3 FY 2024', date: 'February 14, 2024' },
               ]).map((item, idx) => (
-                <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-6 lg:p-8 bg-white border border-slate-100 rounded-2xl hover:border-indigo-200 hover:shadow-md transition-all group gap-4">
+                <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-6 lg:p-8 bg-white border border-slate-100 rounded-2xl hover:border-slate-300 hover:shadow-lg transition-all group gap-4">
                   <div>
-                    <h4 className="text-base sm:text-lg font-serif font-bold mb-1 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-600 bg-clip-text text-transparent">{item.title}</h4>
-                    <p className="text-[10px] sm:text-xs text-slate-400 font-medium">{item.date}</p>
+                    <h4 className="text-sm sm:text-lg font-serif font-bold mb-1 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-600 bg-clip-text text-transparent">{item.title}</h4>
+                    <p className="text-[10px] sm:text-xs text-slate-400 font-medium uppercase tracking-wider">{item.date}</p>
                   </div>
-                  <button className="flex items-center justify-center space-x-3 bg-slate-50 text-slate-600 px-4 py-2 sm:px-6 sm:py-3 rounded-xl hover:bg-indigo-600 hover:text-white transition-all font-bold text-xs">
+                  <button 
+                    onClick={() => setIsDisclosureOpen(true)}
+                    className="flex items-center justify-center space-x-2 bg-slate-50 text-slate-600 px-4 py-2.5 sm:px-6 sm:py-3 rounded-xl hover:bg-slate-900 hover:text-white transition-all font-bold text-[11px] sm:text-xs uppercase tracking-wider active:scale-95 shadow-sm"
+                  >
                     <Download size={14} />
                     <span>Download PDF</span>
                   </button>
@@ -136,6 +145,8 @@ const FinancialsView: React.FC<FinancialsViewProps> = ({ onBack, onLanding }) =>
           )}
         </AnimatePresence>
       </div>
+
+      <DisclosureModal isOpen={isDisclosureOpen} onClose={() => setIsDisclosureOpen(false)} />
     </div>
   );
 };

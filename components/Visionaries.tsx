@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -13,6 +13,13 @@ interface Visionary {
 
 const visionaries: Visionary[] = [
   {
+    name: "Mr. Ganga Bhishan Mittal",
+    role: "Director",
+    about: "A guiding force behind Kudu Industries, bringing decades of experience in the textile sector and a steadfast commitment to quality and ethical business practices.",
+    qualities: ["Industry Experience", "Ethical Leadership", "Strategic Oversight"],
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800"
+  },
+  {
     name: "Mr. Gaurav Mittal",
     role: "Managing Director",
     about: "Visionary leader driving Kudu’s vertical integration, innovation, and large-scale manufacturing excellence. Focused on building a globally competitive textile ecosystem with strong operational control and long-term brand value.",
@@ -20,16 +27,9 @@ const visionaries: Visionary[] = [
     image: "https://ik.imagekit.io/yajas/Gemini_Generated_Image_tjghabtjghabtjgh.png"
   },
   {
-    name: "Mr. Ganga Bishan Mittal",
-    role: "Director",
-    about: "A guiding force behind Kudu Industries, bringing decades of experience in the textile sector and a steadfast commitment to quality and ethical business practices.",
-    qualities: ["Industry Experience", "Ethical Leadership", "Strategic Oversight"],
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800"
-  },
-  {
     name: "Mrs. Shilpa Mittal",
     role: "Director",
-    about: "Driving brand identity, retail expansion, and positioning of Kudu’s in-house labels including Idhu, Poker, and Golfwear. Focused on blending textile expertise with modern consumer demand.",
+    about: "Driving brand identity, retail expansion, and positioning of Kudu’s in-house labels including Idhu, Poker, and Golfbuyindia. Focused on blending textile expertise with modern consumer demand.",
     qualities: ["Brand Development", "Market Positioning", "Creative Direction"],
     image: "https://ik.imagekit.io/yajas/Gemini_Generated_Image_1g94a41g94a41g94.png"
   },
@@ -56,31 +56,27 @@ const Visionaries: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + visionaries.length) % visionaries.length);
   }, []);
 
-  useEffect(() => {
-    const timer = setInterval(nextSlide, 5000);
-    return () => clearInterval(timer);
-  }, [nextSlide]);
-
   const current = visionaries[currentIndex];
 
   return (
-    <section id="visionaries" className="relative py-4 lg:py-10 px-6 overflow-hidden bg-[#F9F9F7]">
+    <section id="visionaries" className="relative py-4 lg:py-10 px-6 overflow-hidden bg-[#f8fafc]">
       {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-30">
-        <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[60%] bg-blue-100/40 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[60%] bg-indigo-100/40 blur-[120px] rounded-full" />
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
+        <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[60%] bg-slate-200/40 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-10%] left-[-5%] w-[40%] h-[60%] bg-slate-100/40 blur-[120px] rounded-full" />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Mobile Heading (Visible only on mobile) */}
-        <div className="lg:hidden text-center mb-6">
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mb-2 leading-tight">
-            The Visionaries <span className="italic font-light text-slate-500">Behind Kudu</span>
+        <div className="lg:hidden text-center mb-8">
+          <h2 className="text-5xl sm:text-5xl font-serif font-bold text-slate-900 mb-2 leading-tight tracking-tighter uppercase">
+            The Visionaries <br />
+            <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-slate-600 via-slate-400 to-slate-300 lowercase">Behind Kudu</span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-6 lg:gap-16 items-center">
-          
+
           {/* LEFT SIDE: Content */}
           <div className="order-2 lg:order-1">
             {/* Desktop Heading (Hidden on mobile) */}
@@ -91,9 +87,9 @@ const Visionaries: React.FC = () => {
               transition={{ duration: 0.8 }}
               className="hidden lg:block"
             >
-              <h2 className="text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-6 leading-tight">
+              <h2 className="text-5xl lg:text-8xl font-serif font-bold text-slate-900 mb-6 leading-[0.9] tracking-tighter uppercase">
                 The Visionaries <br />
-                <span className="italic font-light text-slate-500">Behind Kudu</span>
+                <span className="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-slate-600 via-slate-400 to-slate-300 lowercase">Behind Kudu</span>
               </h2>
               <p className="text-base lg:text-lg text-slate-600 font-medium leading-relaxed mb-12 max-w-xl">
                 A legacy built on trust, driven by innovation, and led by a commitment to global excellence in textiles.
@@ -115,7 +111,7 @@ const Visionaries: React.FC = () => {
                     <h3 className="text-2xl lg:text-4xl font-serif font-bold text-slate-900 mb-2">
                       {current.name}
                     </h3>
-                    <p className="text-sm lg:text-base font-semibold text-indigo-600">
+                    <p className="text-sm lg:text-base font-semibold text-transparent bg-clip-text bg-gradient-to-r from-slate-600 to-slate-400">
                       {current.role}
                     </p>
                   </div>
@@ -127,7 +123,7 @@ const Visionaries: React.FC = () => {
                   <div className="space-y-3 pt-4">
                     {current.qualities.map((quality, idx) => (
                       <div key={idx} className="flex items-center space-x-3">
-                        <div className="w-1.5 h-1.5 bg-indigo-600 rounded-full" />
+                        <div className="w-1.5 h-1.5 bg-gradient-to-r from-slate-500 to-slate-300 rounded-full" />
                         <span className="text-xs sm:text-sm lg:text-base font-semibold text-slate-700">
                           {quality}
                         </span>
@@ -139,7 +135,7 @@ const Visionaries: React.FC = () => {
             </div>
 
             {/* Navigation Dots */}
-            <div className="flex items-center space-x-4 mt-12">
+            <div className="flex items-center justify-center lg:justify-start space-x-4 mt-10">
               {visionaries.map((_, idx) => (
                 <button
                   key={idx}
@@ -147,9 +143,8 @@ const Visionaries: React.FC = () => {
                     setDirection(idx > currentIndex ? 1 : -1);
                     setCurrentIndex(idx);
                   }}
-                  className={`h-1.5 rounded-full transition-all duration-500 ${
-                    idx === currentIndex ? 'w-12 bg-black' : 'w-3 bg-black/10 hover:bg-black/30'
-                  }`}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${idx === currentIndex ? 'w-12 bg-black' : 'w-3 bg-black/10 hover:bg-black/30'
+                    }`}
                 />
               ))}
             </div>
@@ -162,27 +157,27 @@ const Visionaries: React.FC = () => {
                 <motion.div
                   key={currentIndex}
                   custom={direction}
-                  initial={{ 
-                    opacity: 0, 
-                    x: 100, 
-                    z: -200, 
-                    rotateY: 45 
+                  initial={{
+                    opacity: 0,
+                    x: 100,
+                    z: -200,
+                    rotateY: 45
                   }}
-                  animate={{ 
-                    opacity: 1, 
-                    x: 0, 
-                    z: 0, 
-                    rotateY: 0 
+                  animate={{
+                    opacity: 1,
+                    x: 0,
+                    z: 0,
+                    rotateY: 0
                   }}
-                  exit={{ 
-                    opacity: 0, 
-                    x: -100, 
-                    z: -200, 
-                    rotateY: -45 
+                  exit={{
+                    opacity: 0,
+                    x: -100,
+                    z: -200,
+                    rotateY: -45
                   }}
-                  transition={{ 
-                    duration: 0.8, 
-                    ease: [0.22, 1, 0.36, 1] 
+                  transition={{
+                    duration: 0.8,
+                    ease: [0.22, 1, 0.36, 1]
                   }}
                   className="absolute w-full h-full flex justify-center items-center"
                 >
@@ -198,25 +193,24 @@ const Visionaries: React.FC = () => {
                   </div>
                 </motion.div>
               </AnimatePresence>
-
-              {/* Manual Navigation Arrows (Desktop Only) */}
-              <div className="hidden lg:flex absolute bottom-0 left-1/2 -translate-x-1/2 space-x-6 z-20">
-                <button 
-                  onClick={prevSlide}
-                  className="p-4 rounded-full border border-black/5 hover:bg-black hover:text-white transition-all duration-500 group"
-                >
-                  <ChevronLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
-                </button>
-                <button 
-                  onClick={nextSlide}
-                  className="p-4 rounded-full border border-black/5 hover:bg-black hover:text-white transition-all duration-500 group"
-                >
-                  <ChevronRight size={24} className="group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
             </div>
           </div>
+        </div>
 
+        {/* Manual Navigation Arrows (Refined & Repositioned) */}
+        <div className="flex items-center justify-center lg:justify-start lg:ml-0 space-x-6 mt-8 lg:mt-10 relative z-30">
+          <button
+            onClick={prevSlide}
+            className="p-3 lg:p-3.5 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-500 group shadow-sm bg-white"
+          >
+            <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="p-3 lg:p-3.5 rounded-full border border-black/10 hover:bg-black hover:text-white transition-all duration-500 group shadow-sm bg-white"
+          >
+            <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+          </button>
         </div>
       </div>
     </section>

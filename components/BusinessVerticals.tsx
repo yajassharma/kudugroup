@@ -4,17 +4,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Factory, Shirt, Activity, Target, ChevronRight, ChevronLeft, ExternalLink, Info, Settings } from 'lucide-react';
 
 const factoryImages = [
-  "https://ik.imagekit.io/yajas/aboutHero.jpg",
-  "https://ik.imagekit.io/yajas/factory3.jpg",
-  "https://ik.imagekit.io/yajas/knitting.jpg"
+  "https://ik.imagekit.io/yajas/DSC01326.JPG",
+  "https://ik.imagekit.io/yajas/DSC01348.JPG",
+  "https://ik.imagekit.io/yajas/DSC01288.JPG",
+  "https://ik.imagekit.io/yajas/DSC01304.JPG"
 ];
 
 const TextileMachine = () => {
   return (
     <div className="relative w-full max-w-5xl aspect-[16/9] bg-zinc-50 rounded-[2.5rem] overflow-hidden border border-zinc-100 shadow-sm">
       {/* Subtle Background Grid */}
-      <div className="absolute inset-0 opacity-[0.03]" 
-           style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      <div className="absolute inset-0 opacity-[0.03]"
+        style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
       <svg
         viewBox="0 0 800 450"
@@ -27,7 +28,7 @@ const TextileMachine = () => {
             <stop offset="50%" stopColor="#a855f7" />
             <stop offset="100%" stopColor="#ec4899" />
           </linearGradient>
-          
+
           <filter id="glow">
             <feGaussianBlur stdDeviation="1.5" result="coloredBlur" />
             <feMerge>
@@ -73,7 +74,7 @@ const TextileMachine = () => {
         {/* --- SECTION 2: WEAVING ENGINE --- */}
         <g id="engine" transform="translate(220, 150)">
           <rect x="0" y="0" width="240" height="180" rx="24" fill="white" stroke="#f4f4f5" strokeWidth="2" />
-          
+
           <motion.g
             animate={{ rotate: 360 }}
             transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
@@ -128,7 +129,7 @@ const TextileMachine = () => {
         {/* --- SECTION 3: CUTTING & ASSEMBLY --- */}
         <g id="assembly" transform="translate(490, 150)">
           <rect x="0" y="0" width="110" height="180" rx="20" fill="white" stroke="#f4f4f5" strokeWidth="2" />
-          
+
           <motion.line
             x1="55" y1="30" x2="55" y2="150"
             stroke="#6366f1"
@@ -210,7 +211,11 @@ const TextileMachine = () => {
   );
 };
 
-const BusinessVerticals: React.FC = () => {
+interface BusinessVerticalsProps {
+  onNavClick?: (id: string) => void;
+}
+
+const BusinessVerticals: React.FC<BusinessVerticalsProps> = ({ onNavClick }) => {
   const [activePopup, setActivePopup] = useState<string | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -244,19 +249,19 @@ const BusinessVerticals: React.FC = () => {
       isLive: false,
       icon: <Activity className="w-6 h-6" />,
       image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800',
-      accent: 'bg-indigo-500'
+      accent: 'bg-slate-700'
     },
     {
       id: 'golf',
-      title: 'GOLF WEAR',
-      subtitle: 'Golf Apparel & Accessories',
-      desc: 'A specialised vertical dedicated to golf apparel, accessories and equipment, built for a niche premium sporting audience.',
-      positioning: 'Luxury Sport + Lifestyle',
-      website: '#',
-      isLive: false,
+      title: 'GOLFBUYINDIA',
+      subtitle: 'E-commerce Platform',
+      desc: 'India\'s premier online destination for golf equipment, apparel and accessories, offering a curated selection of global brands.',
+      positioning: 'Comprehensive Choice + Authentic Quality',
+      website: 'https://golfbuyindia.com',
+      isLive: true,
       icon: <Target className="w-6 h-6" />,
       image: 'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&q=80&w=800',
-      accent: 'bg-amber-500'
+      accent: 'bg-emerald-600'
     }
   ];
 
@@ -275,55 +280,67 @@ const BusinessVerticals: React.FC = () => {
 
       {/* Section Header */}
       <div className="flex flex-col items-center mb-12 lg:mb-24 text-center relative z-10">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           className="brand-divider !mb-8"
         >
           <div className="brand-diamond"></div>
         </motion.div>
-        <h2 className="text-3xl md:text-5xl lg:text-8xl text-black font-serif font-black leading-none tracking-tight uppercase">
-          Our Business <span className="font-light italic text-indigo-600">Verticals</span>
+        <h2 className="text-5xl md:text-5xl lg:text-8xl text-black font-serif font-bold leading-[0.9] tracking-tighter uppercase">
+          Our Business <br />
+          <span className="italic font-light lowercase text-transparent bg-clip-text bg-gradient-to-r from-slate-600 via-slate-400 to-slate-300">Verticals</span>
         </h2>
       </div>
 
       {/* Group Overview Block */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-20 lg:mb-32 relative z-10">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 0.8 }}
           className="lg:col-span-5 flex flex-col justify-center order-2 lg:order-1"
         >
           <h3 className="text-2xl md:text-3xl lg:text-5xl font-serif font-black text-black mb-8 leading-tight">
-            KUDU GROUP is the combined strength of <span className="text-blue-600 italic font-light">Kudu Fabrics</span> & <span className="text-emerald-600 italic font-light">Kudu Industries Limited.</span>
+            KUDU GROUP - Five companies, <span className="text-blue-600 italic font-light">one integrated vision.</span>
           </h3>
+          <ul className="flex flex-wrap gap-2 mb-6">
+            {['Kudu Industries Limited', 'Kudu Fabrics', 'Idhu Fashions Pvt. Ltd.', 'Merchandise Experts', 'Shishi Impex'].map((co) => (
+              <li key={co} className="text-[10px] lg:text-xs font-bold uppercase px-3 py-1.5 rounded-md border border-black/10 text-black/50 bg-black/[0.03]">
+                {co}
+              </li>
+            ))}
+          </ul>
           <p className="text-sm md:text-base lg:text-lg text-black/60 font-medium leading-relaxed mb-8 lg:mb-10">
-            Kudu Group represents a powerful synergy between Kudu Fabrics and Kudu Industries Limited, creating a seamless ecosystem of textile excellence. From advanced fabric engineering to high-precision garment manufacturing, our integrated approach ensures unmatched quality control and innovation at every stage of the production cycle.
+            Kudu Group is a vertically integrated textile conglomerate spanning five entities - Kudu Industries Limited, Kudu Fabrics, Idhu Fashions Pvt. Ltd., Merchandise Experts, and Shishi Impex. Together they create a seamless ecosystem of textile excellence, from advanced fabric engineering and precision garment manufacturing to consumer brands and export trade.
           </p>
           <div className="flex justify-start">
-            <button className="group inline-flex items-center space-x-3 px-6 py-3 rounded-full bg-slate-900 text-white text-[10px] lg:text-xs font-bold transition-all hover:bg-indigo-600 shadow-lg active:scale-95">
+            <button 
+              onClick={() => onNavClick?.('about')}
+              className="group inline-flex items-center space-x-3 px-6 py-3 rounded-full bg-slate-900 text-white text-[10px] lg:text-xs font-bold transition-all hover:bg-slate-700 shadow-lg active:scale-95"
+            >
               <span>Know More</span>
               <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{ duration: 1 }}
           className="lg:col-span-7 order-1 lg:order-2 -mx-6 lg:mx-0"
         >
-          <div className="relative aspect-[16/9] md:aspect-[21/9] lg:aspect-[16/9] rounded-none lg:rounded-[60px] overflow-hidden shadow-2xl group bg-black">
+          <div className="relative aspect-[16/9] md:aspect-[21/9] lg:aspect-[16/9] rounded-none lg:rounded-[30px] overflow-hidden shadow-2xl group bg-black">
             <AnimatePresence mode="wait">
-              <motion.img 
+              <motion.img
                 key={currentImageIndex}
-                src={factoryImages[currentImageIndex]} 
-                alt={`Factory View ${currentImageIndex + 1}`} 
+                src={factoryImages[currentImageIndex]}
+                alt={`Factory View ${currentImageIndex + 1}`}
                 initial={{ opacity: 0, scale: 1.1 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
@@ -332,9 +349,9 @@ const BusinessVerticals: React.FC = () => {
                 referrerPolicy="no-referrer"
               />
             </AnimatePresence>
-            
+
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-            
+
             {/* Carousel Controls */}
             <div className="absolute bottom-6 lg:bottom-12 left-6 lg:left-12 right-6 lg:right-12 flex flex-col lg:flex-row items-start lg:items-end justify-between gap-4">
 
@@ -344,9 +361,8 @@ const BusinessVerticals: React.FC = () => {
                   <button
                     key={i}
                     onClick={() => setCurrentImageIndex(i)}
-                    className={`h-1.5 rounded-full transition-all duration-500 ${
-                      i === currentImageIndex ? 'w-8 bg-white' : 'w-2 bg-white/30 hover:bg-white/50'
-                    }`}
+                    className={`h-1.5 rounded-full transition-all duration-500 ${i === currentImageIndex ? 'w-8 bg-white' : 'w-2 bg-white/30 hover:bg-white/50'
+                      }`}
                   />
                 ))}
               </div>
@@ -354,7 +370,7 @@ const BusinessVerticals: React.FC = () => {
 
             {/* Arrow Controls (Optional but nice for UX) */}
             <div className="absolute inset-y-0 left-6 flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
-              <button 
+              <button
                 onClick={() => setCurrentImageIndex((prev) => (prev - 1 + factoryImages.length) % factoryImages.length)}
                 className="p-3 bg-white/10 backdrop-blur-md rounded-full text-white border border-white/20 hover:bg-white/20 transition-all"
               >
@@ -362,7 +378,7 @@ const BusinessVerticals: React.FC = () => {
               </button>
             </div>
             <div className="absolute inset-y-0 right-6 flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
-              <button 
+              <button
                 onClick={() => setCurrentImageIndex((prev) => (prev + 1) % factoryImages.length)}
                 className="p-3 bg-white/10 backdrop-blur-md rounded-full text-white border border-white/20 hover:bg-white/20 transition-all"
               >
@@ -374,16 +390,17 @@ const BusinessVerticals: React.FC = () => {
       </div>
 
       {/* Core Manufacturing Vertical (B2B) */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: 0.1 }}
         className="glass p-6 lg:p-20 rounded-none lg:rounded-[80px] bg-gradient-to-br from-white/80 to-blue-50/60 border-white shadow-2xl mb-20 lg:mb-32 -mx-6 lg:mx-0 relative overflow-hidden group"
-      >       
+      >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
           <div>
-            <h2 className="text-2xl md:text-4xl lg:text-6xl font-serif font-black text-black mb-6 lg:mb-10 leading-tight uppercase tracking-tight">
-              Textile & Garment <br /><span className="italic font-light text-blue-600">Manufacturing</span>
+            <h2 className="text-4xl md:text-4xl lg:text-7xl font-serif font-bold text-slate-900 mb-6 lg:mb-10 leading-[0.9] uppercase tracking-tighter">
+              Textile & Garment <br />
+              <span className="italic font-light lowercase text-transparent bg-clip-text bg-gradient-to-r from-slate-600 via-slate-400 to-slate-300">Manufacturing</span>
             </h2>
 
             {/* Mobile SVG Placement */}
@@ -391,15 +408,15 @@ const BusinessVerticals: React.FC = () => {
               <TextileMachine />
             </div>
 
-            <p className="text-base lg:text-xl text-black/60 font-medium leading-relaxed mb-8 lg:mb-12">
+            <p className="text-sm md:text-base lg:text-lg text-black/60 font-medium leading-relaxed mb-8 lg:mb-12">
               End-to-end textile capabilities from raw fabric to finished garments. Our global, export-ready infrastructure supports large-scale production for the world's leading brands.
             </p>
-            
+
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
               {[
                 { title: 'Fabric Manufacturing', desc: 'High-speed knitting and weaving units.', color: 'text-blue-600' },
                 { title: 'Processing & Printing', desc: 'Advanced dyeing and digital printing.', color: 'text-emerald-600' },
-                { title: 'Embroidery & Value Add', desc: 'Intricate detailing and finishes.', color: 'text-indigo-600' },
+                { title: 'Embroidery & Value Add', desc: 'Intricate detailing and finishes.', color: 'text-slate-600' },
                 { title: 'Garment Production', desc: 'Large-scale stitching and finishing.', color: 'text-rose-600' }
               ].map((item, i) => (
                 <div key={i} className="space-y-4">
@@ -423,14 +440,14 @@ const BusinessVerticals: React.FC = () => {
       <AnimatePresence>
         {activePopup && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center px-6">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActivePopup(null)}
               className="absolute inset-0 bg-black/20 backdrop-blur-xl"
             />
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -445,7 +462,7 @@ const BusinessVerticals: React.FC = () => {
               <p className="text-lg text-black/50 font-medium leading-relaxed mb-12">
                 This business vertical is currently in strategic development. We are crafting a premium experience that will redefine the category.
               </p>
-              <button 
+              <button
                 onClick={() => setActivePopup(null)}
                 className="px-12 py-5 bg-black text-white rounded-full font-bold uppercase tracking-widest hover:bg-slate-900 transition-all shadow-2xl active:scale-95"
               >

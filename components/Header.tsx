@@ -26,29 +26,28 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen, onNavClick }
     { name: 'Printing & Processing', id: 'printing-processing' },
     { name: 'Garment Manufacturing', id: 'garment-manufacturing' },
     { name: 'Embroidery & Finishing', id: 'embroidery-finishing' },
-    { name: 'Protective & Medical', id: 'protective-textiles' },
     { name: 'Infrastructure', id: 'infrastructure-capabilities' },
   ];
 
   const [isVerticalsHovered, setIsVerticalsHovered] = useState(false);
 
   return (
-    <motion.header 
+    <motion.header
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       className="fixed top-0 left-0 right-0 z-50 px-4 py-3 lg:px-12 lg:py-6 flex items-center justify-center"
     >
       <div className="max-w-[1500px] w-full flex items-center justify-between">
         {/* Official Kudu Logo in Upper Left */}
-        <div 
+        <div
           onClick={() => onNavClick?.('home')}
           className="flex items-center cursor-pointer group"
         >
           <div className="h-10 lg:h-16 transition-transform duration-500 group-hover:scale-105">
-            <img 
-              src="https://ik.imagekit.io/yajas/Kudu_Logo_Concept-removebg-preview.png" 
-              alt="Kudu Logo" 
-              className="h-full w-auto object-contain mix-blend-multiply" 
+            <img
+              src="https://ik.imagekit.io/yajas/Kudu_Logo_Concept-removebg-preview.png"
+              alt="Kudu Logo"
+              className="h-full w-auto object-contain mix-blend-multiply"
             />
           </div>
         </div>
@@ -57,12 +56,12 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen, onNavClick }
         <div className="flex items-center space-x-3 lg:space-x-4">
           <nav className="hidden lg:flex items-center space-x-1 glass px-4 py-2 rounded-full border border-black/5 shadow-lg relative">
             {/* Our Verticals with Mega Dropdown */}
-            <div 
+            <div
               className="relative"
               onMouseEnter={() => setIsVerticalsHovered(true)}
               onMouseLeave={() => setIsVerticalsHovered(false)}
             >
-              <button 
+              <button
                 onClick={() => onNavClick?.('verticals')}
                 className={`px-5 py-2 text-[11px] font-semibold flex items-center space-x-1 transition-colors ${isVerticalsHovered ? 'text-slate-900' : 'text-slate-500 hover:text-slate-900'}`}
               >
@@ -99,12 +98,12 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen, onNavClick }
             </div>
             <div className="w-1 h-1 rounded-full bg-slate-200"></div>
             {/* Investor Relations with Mega Dropdown */}
-            <div 
+            <div
               className="relative"
               onMouseEnter={() => setIsIRHovered(true)}
               onMouseLeave={() => setIsIRHovered(false)}
             >
-              <button 
+              <button
                 onClick={() => onNavClick?.('investor-relations')}
                 className={`px-5 py-2 text-[11px] font-semibold flex items-center space-x-1 transition-colors ${isIRHovered ? 'text-slate-900' : 'text-slate-500 hover:text-slate-900'}`}
               >
@@ -143,8 +142,8 @@ const Header: React.FC<HeaderProps> = ({ isMenuOpen, setIsMenuOpen, onNavClick }
               </AnimatePresence>
             </div>
           </nav>
-          
-          <button 
+
+          <button
             onClick={() => setIsMenuOpen(true)}
             className="p-3.5 lg:p-4 bg-slate-900 text-white shadow-2xl rounded-full hover:bg-slate-800 transition-all active:scale-95 flex items-center justify-center"
           >

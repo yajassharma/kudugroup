@@ -1,131 +1,117 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import VerticalHero from './VerticalHero';
-import VerticalCard from './VerticalCard';
+import { ChevronRight, ArrowLeft } from 'lucide-react';
 
-export type VerticalID = 'fabric-production' | 'printing-processing' | 'garment-manufacturing' | 'embroidery-finishing' | 'protective-textiles' | 'infrastructure-capabilities';
+export type VerticalID = 'fabric-production' | 'printing-processing' | 'garment-manufacturing' | 'embroidery-finishing' | 'infrastructure-capabilities';
 
 interface VerticalsLandingProps {
   onVerticalClick: (id: VerticalID) => void;
+  onBack: () => void;
 }
 
-const VerticalsLanding: React.FC<VerticalsLandingProps> = ({ onVerticalClick }) => {
+const VerticalsLanding: React.FC<VerticalsLandingProps> = ({ onVerticalClick, onBack }) => {
   const verticals = [
     {
       id: 'fabric-production' as VerticalID,
       title: 'Fabric Production',
-      description: 'Precision fabric engineering through large-scale knitting units, producing high-performance jerseys, jacquards, and fleece.',
-      image: 'https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_cryieocryieocryi.png'
+      subtitle: 'Precision Engineering',
+      image: 'https://ik.imagekit.io/yajas/DSC01258.JPG?updatedAt=1775345730233'
     },
     {
       id: 'printing-processing' as VerticalID,
       title: 'Printing & Processing',
-      description: 'Advanced sublimation, digital dyeing, and fabric finishing technologies ensuring world-class color consistency and texture.',
-      image: 'https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_psechqpsechqpsec.png'
+      subtitle: 'Technical Innovation',
+      image: 'https://ik.imagekit.io/yajas/DSC01315.JPG'
     },
     {
       id: 'garment-manufacturing' as VerticalID,
       title: 'Garment Manufacturing',
-      description: 'State-of-the-art stitching units delivering bulk production and retail brand manufacturing with export-ready quality.',
-      image: 'https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_8gdua58gdua58gdu.png'
+      subtitle: 'Export-Ready Quality',
+      image: 'https://ik.imagekit.io/yajas/DSC01307.JPG?updatedAt=1775345729893'
     },
     {
       id: 'embroidery-finishing' as VerticalID,
       title: 'Embroidery & Finishing',
-      description: 'Intricate in-house embroidery and value-added finishes that provide premium texture and aesthetic enhancements.',
-      image: 'https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_5zlmms5zlmms5zlm.png'
-    },
-    {
-      id: 'protective-textiles' as VerticalID,
-      title: 'Protective & Medical',
-      description: 'Specialized industrial textile solutions including PPE suits, coveralls, and high-performance protective gear.',
-      image: 'https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_b07jc5b07jc5b07j.png'
+      subtitle: 'Artisanal Precision',
+      image: 'https://ik.imagekit.io/yajas/DSC01331.JPG'
     },
     {
       id: 'infrastructure-capabilities' as VerticalID,
       title: 'Infrastructure & Capabilities',
-      description: 'A massive technology ecosystem featuring knitting capacity, processing lines, and dedicated R&D labs.',
-      image: 'https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_9chok19chok19cho.png'
+      subtitle: 'Industrial Ecosystem',
+      image: 'https://ik.imagekit.io/yajas/WhatsApp%20Image%202026-03-10%20at%2013.41.31.jpeg'
     }
   ];
 
   return (
-    <div className="bg-[#0A0A0A] min-h-screen relative overflow-hidden">
-      {/* Global Architectural Grid Background */}
-      <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none">
-        <svg width="100%" height="100%" className="absolute inset-0">
-          <pattern id="bg-grid-v2" width="120" height="120" patternUnits="userSpaceOnUse">
-            <path d="M 120 0 L 0 0 0 120" fill="none" stroke="white" strokeWidth="1" />
-          </pattern>
-          <rect width="100%" height="100%" fill="url(#bg-grid-v2)" />
-        </svg>
-      </div>
+    <div className="bg-white min-h-screen">
+      {/* Fixed Sticky Header */}
+      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference text-white">
+        <button
+          onClick={onBack}
+          className="flex items-center space-x-2 group"
+        >
+          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+          <span className="text-[10px] uppercase tracking-[0.4em] font-bold">Back</span>
+        </button>
+        <span className="text-[10px] uppercase tracking-[0.6em] font-bold">Our Verticals</span>
+      </nav>
 
-      {/* Hero Section - Split Blade V2 */}
-      <div className="snap-section">
-        <VerticalHero
-          title="Our Verticals"
-          subtitle="Integrated expertise across the entire textile value chain, from raw fiber to retail-ready garments."
-          image="https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_8gdua58gdua58gdu.png"
-        />
-      </div>
-
-      {/* Vertical Sections - Metallic Plates V2 */}
-      <div className="relative z-10">
+      <main className="pt-24">
         {verticals.map((vertical, index) => (
-          <div key={vertical.id} className="snap-section">
-            <VerticalCard
-              index={index}
-              title={vertical.title}
-              description={vertical.description}
-              image={vertical.image}
-              reversed={index % 2 !== 0}
-              onClick={() => onVerticalClick(vertical.id)}
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* Bottom CTA - Premium Chrome Architectural Design */}
-      <section className="py-48 lg:py-80 px-4 sm:px-6 bg-[#0A0A0A] text-center overflow-hidden relative z-10 snap-section">
-        <div className="max-w-7xl mx-auto relative group">
-
-          {/* Background Highlight */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-slate-500/10 blur-[160px] rounded-full pointer-events-none" />
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
+          <motion.section
+            key={vertical.id}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            onClick={() => onVerticalClick(vertical.id)}
+            className="group relative h-[40vh] sm:h-[60vh] w-full overflow-hidden cursor-pointer border-b border-white/10"
           >
-            <span className="text-[10px] font-bold uppercase tracking-[0.8em] text-slate-500 mb-16 block">Ready for the Next Era</span>
+            {/* Background Image with Zoom */}
+            <motion.div
+              className="absolute inset-0 z-0"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 1.5 }}
+            >
+              <img
+                src={vertical.image}
+                alt={vertical.title}
+                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/30 transition-colors duration-700" />
+            </motion.div>
 
-            <h2 className="text-6xl sm:text-8xl lg:text-[12rem] font-serif font-light mb-16 leading-[0.9] text-white tracking-tighter">
-              A Legacy of <br />
-              <span className="italic font-light text-slate-400/60 font-serif">Deep Integration</span>
-            </h2>
-
-            <p className="text-xl sm:text-2xl lg:text-3xl text-slate-500 font-medium mb-24 max-w-3xl mx-auto leading-relaxed font-serif italic">
-              "We don't just manufacture; we engineer the future of textiles through absolute control over every stage of the journey."
-            </p>
-
-            {/* Chrome Signature Button */}
-            <button className="relative group overflow-hidden bg-white text-black px-16 py-8 rounded-none font-bold text-xs uppercase tracking-[0.5em] transition-all hover:scale-105 shadow-[0_40px_80px_rgba(255,255,255,0.1)]">
-              <span className="relative z-10">Start a Partnership</span>
-              {/* Silver Slide */}
-              <div className="absolute inset-0 bg-slate-200 -translate-x-full group-hover:translate-x-0 transition-transform duration-700 ease-[0.22, 1, 0.36, 1]" />
-            </button>
-
-            {/* Minimalist Footnote */}
-            <div className="mt-24 pt-24 border-t border-white/5 flex flex-col lg:flex-row items-center justify-between gap-8 opacity-20">
-              <span className="text-[9px] tracking-[0.4em] uppercase font-bold text-white">Est. 1952</span>
-              <span className="text-[9px] tracking-[0.4em] uppercase font-bold text-white">Global Manufacturing Excellence</span>
-              <span className="text-[9px] tracking-[0.4em] uppercase font-bold text-white">Sustainability Driven</span>
+            {/* Content Overlay */}
+            <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+              <h2 className="text-3xl sm:text-5xl lg:text-7xl font-serif font-bold text-white uppercase tracking-tighter transition-all duration-700 group-hover:scale-110">
+                {vertical.title}
+              </h2>
+              <div className="mt-8 flex items-center space-x-2 text-white/80 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+                <span className="text-[10px] font-bold uppercase tracking-widest">Explore Vertical</span>
+                <ChevronRight size={16} />
+              </div>
             </div>
-          </motion.div>
+
+            {/* Vertical Accent Line */}
+            <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-1000" />
+          </motion.section>
+        ))}
+      </main>
+
+      {/* Footer Branding */}
+      <footer className="py-24 bg-white text-center">
+        <div className="max-w-4xl mx-auto px-6">
+          <h3 className="text-4xl sm:text-6xl font-serif font-bold text-slate-900 mb-8 tracking-tighter">
+            Total Vertical <br />
+            <span className="italic text-slate-400 font-light lowercase leading-snug">Deep Integration</span>
+          </h3>
+          <p className="text-slate-500 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+            From raw fiber to retail-ready luxury garments, our integrated ecosystem ensures absolute quality at every stage.
+          </p>
         </div>
-      </section>
+      </footer>
     </div>
   );
 };

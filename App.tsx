@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 import Header from './components/Header';
 import Hero from './components/Hero';
 import BusinessVerticals from './components/BusinessVerticals';
-import BrandsSection, { BrandProduct } from './components/BrandsSection';
+import BrandsSection, { BrandProduct, brands } from './components/BrandsSection';
 import ClientsSection from './components/ClientsSection';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
@@ -24,6 +24,8 @@ import CSR from './components/CSR';
 import Visionaries from './components/Visionaries';
 import PartnerMarquee from './components/PartnerMarquee';
 import SustainabilityPage from './components/SustainabilityPage';
+import AboutPage from './components/AboutPage';
+import TeamPage from './components/TeamPage';
 import ContactPage from './components/ContactPage';
 import PrivacyPolicy from './components/legal/PrivacyPolicy';
 import TermsOfService from './components/legal/TermsOfService';
@@ -35,8 +37,24 @@ import FabricProduction from './components/verticals/FabricProduction';
 import PrintingProcessing from './components/verticals/PrintingProcessing';
 import GarmentManufacturing from './components/verticals/GarmentManufacturing';
 import EmbroideryFinishing from './components/verticals/EmbroideryFinishing';
-import ProtectiveTextiles from './components/verticals/ProtectiveTextiles';
 import InfrastructureCapabilities from './components/verticals/InfrastructureCapabilities';
+import GolfLicensing from './components/GolfLicensing';
+
+const WavyDivider = () => (
+  <div className="relative w-full h-24 lg:h-40 overflow-hidden bg-white -mb-px z-20 pointer-events-none">
+    <svg 
+      viewBox="0 0 1440 320" 
+      preserveAspectRatio="none"
+      className="absolute bottom-0 left-0 w-full h-full"
+    >
+      <path 
+        fill="#f8fafc" 
+        fillOpacity="1" 
+        d="M0,192L48,197.3C96,203,192,213,288,192C384,171,480,117,576,122.7C672,128,768,192,864,208C960,224,1056,192,1152,170.7C1248,149,1344,139,1392,133.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+      ></path>
+    </svg>
+  </div>
+);
 
 const WavyBackground = () => (
   <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-40">
@@ -87,7 +105,7 @@ const MobileMenuItem: React.FC<MobileMenuItemProps> = ({ item, onNavClick, menuI
     <motion.li
       key={item.id}
       variants={menuItemVariants}
-      className="group"
+      className={`group ${item.hideOnDesktop ? 'lg:hidden' : ''}`}
     >
       {item.isAccordion ? (
         <div className="space-y-4">
@@ -142,7 +160,6 @@ const MobileMenuItem: React.FC<MobileMenuItemProps> = ({ item, onNavClick, menuI
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<BrandProduct | null>(null);
   const [showSustainability, setShowSustainability] = useState(false);
@@ -152,10 +169,29 @@ const App: React.FC = () => {
   const [showWholesale, setShowWholesale] = useState(false);
   const [showInvestorRelations, setShowInvestorRelations] = useState(false);
   const [showVerticals, setShowVerticals] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
+  const [showTeam, setShowTeam] = useState(false);
   const [activeVertical, setActiveVertical] = useState<VerticalID | 'landing'>('landing');
   const [irSubPage, setIrSubPage] = useState<InvestorSubPage>('landing');
   const [isIRAccordionOpen, setIsIRAccordionOpen] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
+
+  // ESC key to close menu
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMenuOpen(false);
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
+
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Initial Load Timer - Increased to 4 seconds
   useEffect(() => {
@@ -177,7 +213,7 @@ const App: React.FC = () => {
             duration: 1,
             scrollTrigger: {
               trigger: section,
-              start: "top 85%",
+              start: "top bottom",
               toggleActions: "play none none reverse"
             }
           }
@@ -191,7 +227,8 @@ const App: React.FC = () => {
 
     if (id === 'home') {
       handleBackToHome();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if ((window as any).scrollToTop) (window as any).scrollToTop();
+      else window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
@@ -207,6 +244,16 @@ const App: React.FC = () => {
 
     if (id === 'investor-relations') {
       handleInvestorRelationsClick(subPage as InvestorSubPage || 'landing');
+      return;
+    }
+
+    if (id === 'about') {
+      handleAboutClick();
+      return;
+    }
+
+    if (id === 'visionaries' || id === 'team' || id === 'our-team') {
+      handleTeamClick();
       return;
     }
 
@@ -228,121 +275,141 @@ const App: React.FC = () => {
       return;
     }
 
-    if (selectedProduct || showSustainability || showContact || showInvestorRelations || showVerticals || showPrivacy || showTerms || showWholesale) {
+    if (id === 'brands') {
+      if (subPage) {
+        // Find the brand by name (subPage)
+        const brand = brands.find(b => b.name.toLowerCase() === subPage.toLowerCase());
+        if (brand) {
+          setSelectedProduct(brand);
+          setShowSustainability(false);
+          setShowContact(false);
+          setIsMenuOpen(false);
+          if ((window as any).scrollToTop) (window as any).scrollToTop();
+          else window.scrollTo({ top: 0, behavior: 'instant' });
+          return;
+        }
+      }
+      setIsMenuOpen(false);
       handleBackToHome();
-      // Delay scroll until transition finishes
       setTimeout(() => {
-        const el = id === 'footer' ? document.querySelector('footer') : document.getElementById(id);
+        const el = document.getElementById('brands');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 3500);
+      }, 100);
       return;
     }
 
-    setIsTransitioning(true);
-
-    // Smooth scroll and end transition
-    setTimeout(() => {
-      const el = id === 'footer' ? document.querySelector('footer') : document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-
+    if (selectedProduct || showSustainability || showContact || showInvestorRelations || showVerticals || showPrivacy || showTerms || showWholesale || showAbout || showTeam) {
+      handleBackToHome();
+      // Fast scroll after state reset
       setTimeout(() => {
-        setIsTransitioning(false);
-      }, 2500);
-    }, 1500);
+        const el = id === 'footer' ? document.querySelector('footer') : document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+      return;
+    }
+
+    // Direct scroll for home page sections
+    const el = id === 'footer' ? document.querySelector('footer') : document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleProductClick = (product: BrandProduct) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setSelectedProduct(product);
-      setShowSustainability(false);
-      setShowContact(false);
-      setIsTransitioning(false);
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 3500);
+    setSelectedProduct(product);
+    setShowSustainability(false);
+    setShowContact(false);
+    if ((window as any).scrollToTop) (window as any).scrollToTop();
+    else window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleSustainabilityClick = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setShowSustainability(true);
-      setSelectedProduct(null);
-      setShowContact(false);
-      setIsTransitioning(false);
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 3500);
+    setShowSustainability(true);
+    setSelectedProduct(null);
+    setShowContact(false);
+    if ((window as any).scrollToTop) (window as any).scrollToTop();
+    else window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleContactClick = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setShowContact(true);
-      setShowSustainability(false);
-      setShowInvestorRelations(false);
-      setSelectedProduct(null);
-      setIsTransitioning(false);
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 3500);
+    setShowContact(true);
+    setShowSustainability(false);
+    setShowInvestorRelations(false);
+    setSelectedProduct(null);
+    if ((window as any).scrollToTop) (window as any).scrollToTop();
+    else window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleInvestorRelationsClick = (subPage: InvestorSubPage = 'landing') => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setShowInvestorRelations(true);
-      setIrSubPage(subPage);
-      setShowContact(false);
-      setShowSustainability(false);
-      setShowVerticals(false);
-      setSelectedProduct(null);
-      setIsTransitioning(false);
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 3500);
+    setShowInvestorRelations(true);
+    setIrSubPage(subPage);
+    setShowContact(false);
+    setShowSustainability(false);
+    setShowVerticals(false);
+    setSelectedProduct(null);
+    if ((window as any).scrollToTop) (window as any).scrollToTop();
+    else window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleVerticalsClick = (vertical: VerticalID | 'landing' = 'landing') => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setShowVerticals(true);
-      setActiveVertical(vertical);
-      setShowInvestorRelations(false);
-      setShowContact(false);
-      setShowSustainability(false);
-      setSelectedProduct(null);
-      setIsTransitioning(false);
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 3500);
+    setShowVerticals(true);
+    setActiveVertical(vertical);
+    setShowInvestorRelations(false);
+    setShowContact(false);
+    setShowSustainability(false);
+    setSelectedProduct(null);
+    if ((window as any).scrollToTop) (window as any).scrollToTop();
+    else window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleLegalClick = (page: 'privacy' | 'terms' | 'wholesale') => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setShowPrivacy(page === 'privacy');
-      setShowTerms(page === 'terms');
-      setShowWholesale(page === 'wholesale');
+    setShowPrivacy(page === 'privacy');
+    setShowTerms(page === 'terms');
+    setShowWholesale(page === 'wholesale');
 
-      setShowSustainability(false);
-      setShowContact(false);
-      setShowInvestorRelations(false);
-      setShowVerticals(false);
-      setSelectedProduct(null);
-      setIsTransitioning(false);
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }, 3500);
+    setShowSustainability(false);
+    setShowContact(false);
+    setShowInvestorRelations(false);
+    setShowVerticals(false);
+    setSelectedProduct(null);
+    if ((window as any).scrollToTop) (window as any).scrollToTop();
+    else window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const handleAboutClick = () => {
+    setShowAbout(true);
+    setShowVerticals(false);
+    setShowInvestorRelations(false);
+    setShowContact(false);
+    setShowSustainability(false);
+    setSelectedProduct(null);
+    if ((window as any).scrollToTop) (window as any).scrollToTop();
+    else window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  const handleTeamClick = () => {
+    setShowTeam(true);
+    setShowAbout(false);
+    setShowVerticals(false);
+    setShowInvestorRelations(false);
+    setShowContact(false);
+    setShowSustainability(false);
+    setSelectedProduct(null);
+    if ((window as any).scrollToTop) (window as any).scrollToTop();
+    else window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleBackToHome = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setSelectedProduct(null);
-      setShowSustainability(false);
-      setShowContact(false);
-      setShowPrivacy(false);
-      setShowTerms(false);
-      setShowWholesale(false);
-      setShowInvestorRelations(false);
-      setShowVerticals(false);
-      setIsTransitioning(false);
-    }, 3500);
+    setSelectedProduct(null);
+    setShowSustainability(false);
+    setShowContact(false);
+    setShowPrivacy(false);
+    setShowTerms(false);
+    setShowWholesale(false);
+    setShowInvestorRelations(false);
+    setShowVerticals(false);
+    setShowAbout(false);
+    setShowTeam(false);
+    if ((window as any).scrollToTop) (window as any).scrollToTop();
+    else window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const menuVariants: Variants = {
@@ -383,7 +450,6 @@ const App: React.FC = () => {
       <AnimatePresence>
 
         {isLoading && <LoadingScreen key="initial-loader" />}
-        {isTransitioning && <LoadingScreen key="transition-loader" isTransition={true} />}
       </AnimatePresence>
 
       <Header
@@ -394,7 +460,7 @@ const App: React.FC = () => {
 
       <main className={`relative z-10 transition-opacity duration-700 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
         <AnimatePresence mode="wait">
-          {!selectedProduct && !showSustainability && !showContact && !showInvestorRelations && !showVerticals && !showPrivacy && !showTerms && !showWholesale ? (
+          {!selectedProduct && !showSustainability && !showContact && !showInvestorRelations && !showVerticals && !showPrivacy && !showTerms && !showWholesale && !showAbout && !showTeam ? (
             <motion.div
               key="home-view"
               initial={{ opacity: 0 }}
@@ -406,13 +472,38 @@ const App: React.FC = () => {
               </div>
 
 
-              <div className="relative py-5 z-30">
+              <div className="relative z-30">
                 <PartnerMarquee />
               </div>
 
-              {/* Vision Statement Section - Now with Wavy Background */}
-              <section className="reveal-section snap-section py-24 lg:py-42 px-6 bg-black relative overflow-hidden">
+              <WavyDivider />
 
+              <section id="capabilities" className="px-6 pt-12 pb-20 lg:pt-20 lg:pb-32 bg-[#f8fafc]">
+                <BusinessVerticals onNavClick={handleNavClick} />
+              </section>
+
+              <section id="brands" className="px-6 pt-12 lg:pt-24 pb-0 bg-[#f8fafc]">
+                <BrandsSection onProductClick={handleProductClick} />
+              </section>
+
+              <div className="snap-section">
+                <GolfLicensing />
+              </div>
+
+              <div className="snap-section">
+                <Visionaries />
+              </div>
+
+              <section id="csr" className="px-6 py-20 lg:py-32 bg-[#f8fafc]">
+                <CSR onLearnMore={handleSustainabilityClick} />
+              </section>
+
+              <section id="testimonials" className="px-6 py-20 lg:py-32 bg-slate-50/50 rounded-[50px] mx-6 mb-24 overflow-hidden relative shadow-sm border border-black/5">
+                <Testimonials />
+              </section>
+
+              {/* Vision Statement Section - Now at the end of the page */}
+              <section className="py-24 lg:py-42 px-6 bg-black relative overflow-hidden">
                 <WavyBackground />
                 <div className="max-w-4xl mx-auto text-center relative z-10">
                   <Quote size={56} className="mx-auto text-white/50 mb-10" />
@@ -420,34 +511,9 @@ const App: React.FC = () => {
                     "At Kudu, we don't just manufacture textiles; we engineer the fabric of global commerce with a heritage of trust and innovation."
                   </h2>
                   <div className="mt-12 flex items-center justify-center space-x-3 text-[13px] text-white/40">
-                    <span>Corporate Ethos • Since 1952</span>
+                    <span>Corporate Ethos • Since 1969</span>
                   </div>
                 </div>
-              </section>
-
-              <section id="capabilities" className="reveal-section snap-section px-6 pt-12 pb-20 lg:pt-24 lg:pb-32">
-
-                <BusinessVerticals />
-              </section>
-
-              <section id="brands" className="snap-section px-6 py-4 lg:py-0">
-
-                <BrandsSection onProductClick={handleProductClick} />
-              </section>
-
-              <div className="snap-section">
-                <Visionaries />
-              </div>
-
-
-              <section id="csr" className="reveal-section snap-section px-6 py-20 lg:py-32">
-
-                <CSR onLearnMore={handleSustainabilityClick} />
-              </section>
-
-              <section id="testimonials" className="reveal-section snap-section px-6 py-20 lg:py-32 bg-slate-50/50 rounded-[50px] mx-6 mb-24 overflow-hidden relative shadow-sm border border-black/5">
-
-                <Testimonials />
               </section>
             </motion.div>
           ) : showSustainability ? (
@@ -468,13 +534,12 @@ const App: React.FC = () => {
             />
           ) : showVerticals ? (
             <div key="verticals-view">
-              {activeVertical === 'landing' && <VerticalsLanding onVerticalClick={(id) => handleVerticalsClick(id)} />}
-              {activeVertical === 'fabric-production' && <FabricProduction onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('printing-processing')} />}
-              {activeVertical === 'printing-processing' && <PrintingProcessing onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('garment-manufacturing')} />}
-              {activeVertical === 'garment-manufacturing' && <GarmentManufacturing onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('embroidery-finishing')} />}
-              {activeVertical === 'embroidery-finishing' && <EmbroideryFinishing onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('protective-textiles')} />}
-              {activeVertical === 'protective-textiles' && <ProtectiveTextiles onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('infrastructure-capabilities')} />}
-              {activeVertical === 'infrastructure-capabilities' && <InfrastructureCapabilities onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('fabric-production')} />}
+              {activeVertical === 'landing' && <VerticalsLanding onVerticalClick={(id) => handleVerticalsClick(id)} onBack={() => handleBackToHome()} />}
+              {activeVertical === 'fabric-production' && <FabricProduction onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('printing-processing')} onContactClick={() => handleNavClick('contact')} />}
+              {activeVertical === 'printing-processing' && <PrintingProcessing onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('garment-manufacturing')} onContactClick={() => handleNavClick('contact')} />}
+              {activeVertical === 'garment-manufacturing' && <GarmentManufacturing onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('embroidery-finishing')} onContactClick={() => handleNavClick('contact')} />}
+              {activeVertical === 'embroidery-finishing' && <EmbroideryFinishing onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('infrastructure-capabilities')} onContactClick={() => handleNavClick('contact')} />}
+              {activeVertical === 'infrastructure-capabilities' && <InfrastructureCapabilities onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('fabric-production')} onContactClick={() => handleNavClick('contact')} />}
             </div>
           ) : showPrivacy ? (
             <PrivacyPolicy key="privacy-view" onBack={handleBackToHome} />
@@ -482,11 +547,16 @@ const App: React.FC = () => {
             <TermsOfService key="terms-view" onBack={handleBackToHome} />
           ) : showWholesale ? (
             <WholesaleTerms key="wholesale-view" onBack={handleBackToHome} />
+          ) : showAbout ? (
+            <AboutPage key="about-view" onBack={handleBackToHome} />
+          ) : showTeam ? (
+            <TeamPage key="team-view" onBack={handleBackToHome} onNavClick={handleNavClick} />
           ) : (
             <ProductDetail
               key="detail-view"
               product={selectedProduct!}
-              onBack={handleBackToHome}
+              onBack={() => setSelectedProduct(null)}
+              onNavClick={handleNavClick}
             />
           )}
         </AnimatePresence>
@@ -506,14 +576,14 @@ const App: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMenuOpen(false)}
-              className="fixed inset-0 bg-black/10 backdrop-blur-md z-[90]"
+              className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-[100]"
             />
             <motion.nav
               variants={menuVariants}
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed right-0 top-0 h-full w-[90%] max-w-md bg-white z-[100] flex flex-col border-l border-slate-100 shadow-[-20px_0_60px_rgba(0,0,0,0.05)]"
+              className="fixed top-0 right-0 bottom-0 w-full max-w-[500px] bg-white z-[110] shadow-[-20px_0_60px_rgba(0,0,0,0.1)] flex flex-col"
             >
               <div className="p-8 lg:p-12 flex items-center justify-between border-b border-slate-50">
                 <div>
@@ -530,39 +600,62 @@ const App: React.FC = () => {
 
               <div className="flex-grow overflow-y-auto custom-scrollbar p-8 lg:p-12">
                 <ul className="space-y-6 lg:space-y-8">
-                  {[
-                    {
-                      name: 'Our Verticals', id: 'verticals', isAccordion: true, subItems: [
-                        { name: 'Fabric Production', sub: 'fabric-production' },
-                        { name: 'Printing & Processing', sub: 'printing-processing' },
-                        { name: 'Garment Manufacturing', sub: 'garment-manufacturing' },
-                        { name: 'Embroidery & Finishing', sub: 'embroidery-finishing' },
-                        { name: 'Protective Textiles', sub: 'protective-textiles' },
-                        { name: 'Infrastructure', sub: 'infrastructure-capabilities' }
-                      ]
-                    },
-                    {
-                      name: 'Investors', id: 'investor-relations', isAccordion: true, subItems: [
-                        { name: 'Financials', sub: 'financials' },
-                        { name: 'Annual Reports', sub: 'annual-reports' },
-                        { name: 'Announcements', sub: 'announcements' },
-                        { name: 'Investor Info', sub: 'info' },
-                        { name: 'Governance', sub: 'governance' },
-                        { name: 'Contact', sub: 'contact' }
-                      ]
-                    },
-                    { name: 'Our Team', id: 'visionaries' },
-                    { name: 'D2C Ventures', id: 'brands' },
-                    { name: 'Sustainability', id: 'sustainability' },
-                    { name: 'Contact Us', id: 'contact' }
-                  ].map((item) => (
-                    <MobileMenuItem
-                      key={item.id}
-                      item={item}
-                      onNavClick={handleNavClick}
-                      menuItemVariants={menuItemVariants}
-                    />
-                  ))}
+                  {(() => {
+                    const isMobile = windowWidth < 1024;
+                    const menuItems = isMobile ? [
+                      {
+                        name: 'Our Verticals', id: 'verticals', isAccordion: true, subItems: [
+                          { name: 'Fabric Production', sub: 'fabric-production' },
+                          { name: 'Printing & Processing', sub: 'printing-processing' },
+                          { name: 'Garment Manufacturing', sub: 'garment-manufacturing' },
+                          { name: 'Embroidery & Finishing', sub: 'embroidery-finishing' },
+                          { name: 'Infrastructure', sub: 'infrastructure-capabilities' }
+                        ]
+                      },
+                      {
+                        name: 'Investor Relations', id: 'investor-relations', isAccordion: true, subItems: [
+                          { name: 'Financials', sub: 'financials' },
+                          { name: 'Annual Reports', sub: 'annual-reports' },
+                          { name: 'Announcements', sub: 'announcements' },
+                          { name: 'Investor Info', sub: 'info' },
+                          { name: 'Governance', sub: 'governance' },
+                          { name: 'Contact', sub: 'contact' }
+                        ]
+                      },
+                      {
+                        name: 'Our D2C Brands', id: 'brands', isAccordion: true, subItems: [
+                          { name: 'Idhu', sub: 'idhu' },
+                          { name: 'Poker', sub: 'poker' },
+                          { name: 'Golfbuyindia', sub: 'golfbuyindia' }
+                        ]
+                      },
+                      { name: 'About Us', id: 'about' },
+                      { name: 'Our Team', id: 'team' },
+                      { name: 'Sustainability', id: 'sustainability' },
+                      { name: 'Contact Us', id: 'contact' }
+                    ] : [
+                      { name: 'About Us', id: 'about' },
+                      {
+                        name: 'Our D2C Brands', id: 'brands', isAccordion: true, subItems: [
+                          { name: 'Idhu', sub: 'idhu' },
+                          { name: 'Poker', sub: 'poker' },
+                          { name: 'Golfbuyindia', sub: 'golfbuyindia' }
+                        ]
+                      },
+                      { name: 'Our Team', id: 'team' },
+                      { name: 'Sustainability', id: 'sustainability' },
+                      { name: 'Contact Us', id: 'contact' }
+                    ];
+
+                    return menuItems.map((item: any) => (
+                      <MobileMenuItem
+                        key={item.id}
+                        item={item}
+                        onNavClick={handleNavClick}
+                        menuItemVariants={menuItemVariants}
+                      />
+                    ));
+                  })()}
                 </ul>
               </div>
 

@@ -2,113 +2,160 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
-const domainsRow1 = [
-  "relianceretail.com",
-  "pantaloons.com",
-  "abfrl.com",
-  "ajio.com",
-  "zara.com",
-  "myntra.com",
-  "vishalmegamart.com",
-  "damensch.com"
+type Brand = {
+  domain: string;
+  label: string;
+  customLogoUrl?: string;
+  textOnly?: boolean;
+  subtitle?: string;
+};
+
+const brands: Brand[] = [
+  { domain: "pantaloons.com", label: "Pantaloons" },
+  { domain: "relianceretail.com", label: "Reliance" },
+  { domain: "arvindfashions.com", label: "Arvind" },
+  { domain: "lee.com", label: "Lee" },
+  { domain: "wrangler.com", label: "Wrangler" },
+  {
+    domain: "flyingmachine.in",
+    label: "Flying Machine",
+    customLogoUrl: "https://cdn13.nnnow.com/web-images/master/navtree_metaData/59b25446e4b091b52c6ce09b/1693994612611/06SEP23-FM-New-Logo-N-DSK-rev.png",
+  },
+  {
+    domain: "aeropostale.com",
+    label: "Aero",
+    customLogoUrl: "https://cdn.brandfetch.io/idTafOuoDC/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1773048485991",
+  },
+  {
+    domain: "arrow.com",
+    label: "Arrow",
+    customLogoUrl: "https://cdn02.nnnow.com/web-images/master/navtree_metaData/59b2886be4b0d70964ef273f/1663580462116/Logo_Arrow.png",
+  },
+  {
+    domain: "vanheusenindia.com",
+    label: "Van Heusen",
+    customLogoUrl: "https://cdn.brandfetch.io/idinZAsgLA/w/162/h/29/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX&t=1772384662149",
+  },
+  { domain: "peterengland.com", label: "Peter England" },
+  { domain: "reebok.com", label: "Reebok" },
+  {
+    domain: "ajile.in",
+    label: "Ajile",
+    textOnly: true,
+    subtitle: "by Pantaloons",
+  },
+  {
+    domain: "peregrineclothing.co.uk",
+    label: "Peregrine",
+    customLogoUrl: "https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://www.peregrineclothing.co.uk&size=128",
+  },
+  {
+    domain: "performax.in",
+    label: "Performax",
+    customLogoUrl: "https://cdn.jiocommerce.io/v2/yellow-queen-0c3fa9/features/free/original/theme-image-1726730974355.svg",
+  },
+  { domain: "montecarlo.in", label: "Monte Carlo" },
+  { domain: "dmartindia.com", label: "Dmart" },
 ];
 
-const domainsRow2 = [
-  "vishalfabricsltd.com",
-  "arvindfashions.com",
-  "raymond.in",
-  "manyavar.com",
-  "reebok.com",
-  "dmartindia.com",
-  "adidas.com",
-  "bazaarkolkata.com"
-];
+// Double the brands for half-scroll loop simulation
+const allBrands = [...brands, ...brands];
 
-const BrandLogo: React.FC<{ domain: string }> = ({ domain }) => {
-  // Clearbit migrated to logo.dev. 
-  // We use img.logo.dev as the primary source and t1.gstatic.com (Google Favicon V2) as a robust fallback.
-  const logoUrl = `https://img.logo.dev/${domain}?size=128`;
-  const fallbackUrl = `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://${domain}&size=128`;
-  
+const BrandItem: React.FC<{ brand: Brand }> = ({ brand }) => {
+  const autoLogoUrl = `https://img.logo.dev/${brand.domain}?size=128`;
+  const fallbackUrl = `https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://${brand.domain}&size=128`;
+  const primaryUrl = brand.customLogoUrl ?? autoLogoUrl;
+
   return (
-    <div className="flex items-center space-x-3 lg:space-x-5 group px-6 lg:px-10 py-3 lg:py-5 transition-all duration-700">
-      <div className="w-10 h-10 lg:w-16 lg:h-16 relative flex items-center justify-center">
-        <img
-          src={logoUrl}
-          alt={domain}
-          className="w-full h-full object-contain transition-all duration-700 drop-shadow-sm"
-          loading="lazy"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            // If logo.dev fails (often requires a token), try high-res Google favicon service
-            if (target.src !== fallbackUrl) {
-              target.src = fallbackUrl;
-            } else {
-              target.style.display = 'none';
-            }
-          }}
-        />
+    <motion.div
+      initial={{ scale: 0.7, opacity: 0.4 }}
+      whileInView={{ scale: 1.6, opacity: 1 }}
+      viewport={{ margin: "-5% -48% -5% -48%" }} // Extremely tight center vertical strip
+      transition={{
+        type: "spring",
+        stiffness: 200,
+        damping: 30,
+        mass: 1
+      }}
+      className="flex-shrink-0 flex flex-col items-center justify-center p-8 min-w-[200px] lg:min-w-[300px]"
+    >
+      <div className="w-20 lg:w-32 h-10 lg:h-16 relative flex items-center justify-center mb-3">
+        {!brand.textOnly && (
+          <img
+            src={primaryUrl}
+            alt={brand.label}
+            className="max-w-full max-h-full object-contain"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              if (brand.customLogoUrl && target.src === brand.customLogoUrl) target.src = autoLogoUrl;
+              else if (target.src !== fallbackUrl) target.src = fallbackUrl;
+              else target.style.display = 'none';
+            }}
+          />
+        )}
+        {brand.textOnly && (
+          <span className="text-xs lg:text-lg font-black uppercase text-slate-900 tracking-tighter leading-none">{brand.label}</span>
+        )}
       </div>
-      <div className="flex flex-col">
-        <span className="text-[10px] lg:text-[12px] font-bold uppercase text-black/50 group-hover:text-black/80 transition-colors duration-500">
-          {domain.split('.')[0].replace('industries', '').replace('fashions', '')}
-        </span>
-        <div className="h-[1px] w-0 group-hover:w-full bg-black/10 transition-all duration-700" />
-      </div>
-    </div>
+      <span className="text-[10px] lg:text-[12px] font-bold uppercase text-slate-400 tracking-widest text-center whitespace-nowrap">
+        {brand.label}
+      </span>
+    </motion.div>
   );
 };
 
 const PartnerMarquee: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+
+  // Use a longer travel distance over a slightly taller container for slowing it down
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  const springConfig = { stiffness: 60, damping: 20, restDelta: 0.001 };
-  const smoothProgress = useSpring(scrollYProgress, springConfig);
+  // Spring transition to smooth out the scroll jitters
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 30, damping: 25 });
 
-  // Translation mapping for rows to create parallax movement
-  const x1 = useTransform(smoothProgress, [0, 1], ["5%", "-35%"]);
-  const x2 = useTransform(smoothProgress, [0, 1], ["-35%", "5%"]);
+  // Slower movement: reducing the travel distance OR increasing the scroll height
+  // Currently we go from -80% to 20%
+  const xMove = useTransform(smoothProgress, [0, 1], ["-60%", "20%"]);
 
   return (
-    <div 
+    <section
       ref={containerRef}
-      className="w-full pt-0 pb-0 lg:pb-0 overflow-hidden bg-transparent relative z-30"
+      className="relative w-full pt-12 pb-4 lg:pt-16 lg:pb-6 bg-white overflow-hidden"
     >
-
-      {/* Row 1: Forward Motion */}
-      <div className="relative mb-6 lg:mb-12 flex">
-        <motion.div 
-          style={{ x: x1 }}
-          className="flex whitespace-nowrap gap-8 lg:gap-12 items-center px-4"
+      {/* Elegant Centered Heading */}
+      <div className="max-w-7xl mx-auto px-6 mb-4 lg:mb-8 text-center uppercase tracking-tighter">
+        <motion.h2
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl lg:text-7xl font-serif font-bold text-slate-900 leading-[0.9] tracking-tighter uppercase"
         >
-          {/* Tripled list for a denser, more infinite feeling marquee */}
-          {[...domainsRow1, ...domainsRow1, ...domainsRow1].map((domain, i) => (
-            <BrandLogo key={`${domain}-r1-${i}`} domain={domain} />
+          Our Global
+          <span className="italic font-light lowercase text-transparent bg-clip-text bg-gradient-to-r from-slate-600 via-slate-400 to-slate-300"> Trusted Partners</span>
+        </motion.h2>
+      </div>
+
+      <div className="flex items-center min-h-[200px] lg:min-h-[300px] relative">
+        {/* Decorative Overlays — scoped to logos only, not the heading */}
+        <div className="absolute inset-y-0 left-0 w-16 lg:w-[400px] bg-gradient-to-r from-white via-white/80 to-transparent z-20 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-16 lg:w-[400px] bg-gradient-to-l from-white via-white/80 to-transparent z-20 pointer-events-none" />
+
+        <motion.div
+          style={{ x: xMove }}
+          className="flex gap-4 lg:gap-0 items-center"
+        >
+          {allBrands.map((brand, i) => (
+            <BrandItem
+              key={`${brand.label}-${i}`}
+              brand={brand}
+            />
           ))}
         </motion.div>
       </div>
-
-      {/* Row 2: Reverse Motion */}
-      <div className="relative flex">
-        <motion.div 
-          style={{ x: x2 }}
-          className="flex whitespace-nowrap gap-8 lg:gap-12 items-center px-4"
-        >
-          {[...domainsRow2, ...domainsRow2, ...domainsRow2].map((domain, i) => (
-            <BrandLogo key={`${domain}-r2-${i}`} domain={domain} />
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Edge Fading for Cinematic Transition */}
-      <div className="absolute inset-y-0 left-0 w-20 lg:w-80 bg-gradient-to-r from-white via-white/70 to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-20 lg:w-80 bg-gradient-to-l from-white via-white/70 to-transparent z-10 pointer-events-none" />
-    </div>
+    </section>
   );
 };
 

@@ -9,6 +9,7 @@ interface VerticalLayoutProps {
   image: string;
   children: React.ReactNode;
   onBack: () => void;
+  onContactClick?: () => void;
   nextVertical?: { title: string; onClick: () => void };
 }
 
@@ -18,6 +19,7 @@ const VerticalLayout: React.FC<VerticalLayoutProps> = ({
   image, 
   children, 
   onBack,
+  onContactClick,
   nextVertical 
 }) => {
   return (
@@ -94,7 +96,7 @@ const VerticalLayout: React.FC<VerticalLayoutProps> = ({
               onClick={nextVertical.onClick}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center space-x-3 bg-slate-900 text-white px-8 py-4 rounded-full font-bold text-sm transition-all shadow-lg hover:bg-indigo-600"
+              className="inline-flex items-center space-x-3 bg-slate-900 text-white px-8 py-4 rounded-full font-bold text-sm transition-all shadow-lg hover:bg-slate-700"
             >
               <span>Explore Next</span>
               <ChevronRight size={18} />
@@ -103,11 +105,15 @@ const VerticalLayout: React.FC<VerticalLayoutProps> = ({
         </section>
       )}
 
-      {/* Footer CTA */}
-      <section className="py-16 lg:py-24 px-4 sm:px-6 text-center">
-        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900 mb-4 lg:mb-6">Ready to collaborate?</h3>
-        <p className="text-slate-600 text-base lg:text-lg mb-8 max-w-2xl mx-auto leading-relaxed">Our vertically integrated ecosystem is designed to bring your most ambitious textile visions to life with precision and scale.</p>
-        <button className="text-indigo-600 font-bold text-sm uppercase tracking-widest hover:text-indigo-700 transition-colors">Get in touch with our experts</button>
+      <section className="py-12 lg:py-24 px-6 text-center border-t border-slate-50">
+        <h3 className="text-xl sm:text-3xl lg:text-4xl font-serif font-bold text-slate-900 mb-4 lg:mb-6 leading-tight">Ready to collaborate?</h3>
+        <p className="text-slate-600 text-sm sm:text-base lg:text-lg mb-8 max-w-2xl mx-auto leading-relaxed">Our vertically integrated ecosystem is designed to bring your most ambitious textile visions to life with precision and scale.</p>
+        <button 
+          onClick={onContactClick}
+          className="text-slate-700 font-bold text-[10px] sm:text-xs uppercase tracking-widest hover:text-slate-900 transition-colors border-b border-slate-300 pb-1"
+        >
+          Get in touch with our experts
+        </button>
       </section>
     </motion.div>
   );

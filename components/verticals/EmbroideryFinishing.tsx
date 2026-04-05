@@ -7,25 +7,30 @@ import { motion } from 'framer-motion';
 interface EmbroideryFinishingProps {
   onBack: () => void;
   onNext: () => void;
+  onContactClick?: () => void;
 }
 
-const EmbroideryFinishing: React.FC<EmbroideryFinishingProps> = ({ onBack, onNext }) => {
+const EmbroideryFinishing: React.FC<EmbroideryFinishingProps> = ({ onBack, onNext, onContactClick }) => {
   return (
-    <VerticalLayout 
-      title="Embroidery & Finishing" 
+    <VerticalLayout
+      title="Embroidery & Finishing"
       subtitle="Intricate in-house embroidery and value-added finishes that provide premium texture and aesthetic enhancements."
-      image="https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_5zlmms5zlmms5zlm.png"
+      image="https://ik.imagekit.io/yajas/DSC01331.JPG"
       onBack={onBack}
-      nextVertical={{ title: 'Protective & Medical', onClick: onNext }}
+      onContactClick={onContactClick}
+      nextVertical={{ title: 'Infrastructure & Capabilities', onClick: onNext }}
     >
       <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 items-start lg:items-center mb-16 lg:mb-24">
         <div className="order-1 lg:hidden w-full">
           <h2 className="text-2xl sm:text-3xl font-serif font-medium text-slate-900 mb-4 leading-tight">Value-Added Excellence</h2>
         </div>
         <div className="order-2 lg:order-2 w-full relative aspect-[4/3] lg:aspect-[3/4] rounded-xl lg:rounded-2xl overflow-hidden shadow-sm border border-slate-100">
-          <img 
-            src="https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_k4dfnak4dfnak4df.png" 
-            alt="Embroidery and Finishing" 
+          <video
+            src="https://ik.imagekit.io/yajas/WhatsApp%20Video%202026-03-25%20at%2012.35.19.mp4?updatedAt=1774431941432"
+            autoPlay
+            muted
+            loop
+            playsInline
             className="w-full h-full object-cover"
           />
         </div>
@@ -36,7 +41,7 @@ const EmbroideryFinishing: React.FC<EmbroideryFinishingProps> = ({ onBack, onNex
           </p>
           <div className="grid grid-cols-2 gap-6 lg:gap-8">
             {[
-              { label: 'Embroidery Heads', value: '500+ Heads' },
+              { label: 'Embroidery Heads', value: 'Multiple Heads' },
               { label: 'Stitch Capacity', value: '10M+ Daily' },
               { label: 'Finish Types', value: '20+ Varieties' },
               { label: 'Precision', value: 'High-Definition' },
@@ -58,7 +63,7 @@ const EmbroideryFinishing: React.FC<EmbroideryFinishingProps> = ({ onBack, onNex
             { title: 'Chenille & Sequin', desc: 'Specialized embroidery techniques for texture-rich and decorative apparel designs.' },
             { title: 'Laser Finishing', desc: 'Precision laser cutting and etching for unique surface textures and patterns.' },
           ].map((item, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               whileHover={{ scale: 1.02 }}
               className="bg-slate-50 p-6 lg:p-8 rounded-xl lg:rounded-2xl border border-slate-100 transition-all duration-300"

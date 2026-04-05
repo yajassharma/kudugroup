@@ -17,7 +17,7 @@ export interface BrandProduct {
   websiteStatus?: 'live' | 'development';
 }
 
-const brands: BrandProduct[] = [
+export const brands: BrandProduct[] = [
   {
     name: 'Idhu',
     category: 'Ethnic Winter Wear',
@@ -29,7 +29,7 @@ const brands: BrandProduct[] = [
       'https://ik.imagekit.io/yajas/Screenshot%202026-03-03%20at%206.02.17%E2%80%AFPM.png',
       'https://ik.imagekit.io/yajas/Screenshot%202026-03-03%20at%206.02.48%E2%80%AFPM.png'
     ],
-    materials: ['Premium Combed Cotton', 'Natural Silk Blend', 'Eco-friendly Dyes'],
+    materials: ['Premium Combed Cotton', 'Natural Silk Blend', 'Certified Pigments'],
     specs: [
       { label: 'Fabric Weight', value: '180-220 GSM' },
       { label: 'Weave Type', value: 'Double Knit Jacquard' },
@@ -44,7 +44,7 @@ const brands: BrandProduct[] = [
     category: 'Athleisure',
     desc: 'High-performance sportswear focused on moisture management and comfort.',
     detailedDesc: 'Designed for the high-intensity lifestyle, Poker utilizes our proprietary "Dry-Knit" technology. The fabric is engineered at the molecular level to wick sweat away while maintaining structural integrity. It is the preferred choice for athletes who demand style without compromising on peak performance capabilities.',
-    image: 'https://ik.imagekit.io/yajas/183190843_804518000501800_3577810773188711274_n.jpg',
+    image: 'https://ik.imagekit.io/yajas/18319.jpg?updatedAt=1775347442392',
     gallery: [
       'https://ik.imagekit.io/yajas/Screenshot%202026-03-03%20at%206.37.42%E2%80%AFAM.png',
       'https://ik.imagekit.io/yajas/Screenshot%202026-03-03%20at%206.38.09%E2%80%AFAM.png',
@@ -60,24 +60,25 @@ const brands: BrandProduct[] = [
     websiteStatus: 'development'
   },
   {
-    name: 'Golfwear',
-    category: 'Lifestyle',
-    desc: 'Premium accessories and clothing designed for the sophisticated modern athlete.',
-    detailedDesc: 'The Golfwear collection by Kudu defines luxury on the green. Our specialized knitting processes create a unique pique texture that is soft to the touch but exceptionally durable. Each piece features UV-protection and enhanced thermal regulation, tailored for those who appreciate the finer details of high-end sports apparel.',
-    image: 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&q=80&w=600',
+    name: 'Golfbuyindia',
+    category: 'E-commerce Platform',
+    desc: 'The Group\'s dedicated retail arm for premium golf accessories and equipment.',
+    detailedDesc: 'Golf Buy India is Kudu\'s exclusive retail venture designed to provide a comprehensive selection of authentic global golf brands to enthusiasts across India. From high-performance golf bags and range equipment to specialized technical accessories, we bring the finest international golfing gear directly to the consumer with a promise of 100% original products and price-match guarantee.',
+    image: 'https://golfbuyindia.com/cdn/shop/files/golfbuy_2000_x_2000_px_2000_x_1000_px_1.png?v=1721043080&width=180',
     gallery: [
-      'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=800'
+      'https://golfbuyindia.com/cdn/shop/files/56085045.jpg?v=1756905930&width=1000',
+      'https://golfbuyindia.com/cdn/shop/files/WhatsApp_Image_2025-03-22_at_11.59.24.jpg?v=1754562429&width=1000',
+      'https://golfbuyindia.com/cdn/shop/files/2_inch_33.png?v=1767438280&width=1000'
     ],
-    materials: ['Supima Cotton Pique', 'Coolmax Technology', 'Brushed Microfiber'],
+    materials: ['Pro-grade Graphite', 'Titanium Alloys', 'Premium Leather', 'Technical Fabrics'],
     specs: [
-      { label: 'Fit', value: 'Tailored Athletic Fit' },
-      { label: 'UV Protection', value: 'UPF 50+' },
-      { label: 'Finish', value: 'Mercerized Luster' }
+      { label: 'Inventory', value: '50+ Global Brands' },
+      { label: 'Shipping', value: 'Free Pan-India' },
+      { label: 'Authenticity', value: '100% Original Products' }
     ],
-    color: 'slate',
-    websiteStatus: 'development'
+    color: 'emerald',
+    websiteUrl: 'https://golfbuyindia.com',
+    websiteStatus: 'live'
   }
 ];
 
@@ -89,29 +90,28 @@ const BrandsSection: React.FC<BrandsSectionProps> = ({ onProductClick }) => {
   return (
     <div className="max-w-7xl mx-auto relative px-4">
       {/* Section Header */}
-      <div className="flex flex-col lg:flex-row items-center lg:items-end justify-between mb-20 lg:mb-32 gap-8 lg:gap-12">
-        <div className="max-w-3xl text-center lg:text-left">     
+      <div className="flex flex-col lg:flex-row items-center lg:items-end justify-between mb-20 lg:mb-20 gap-8 lg:gap-12">
+        <div className="max-w-3xl text-center lg:text-left">
           <h2 className="text-4xl lg:text-8xl font-serif text-slate-900 font-bold tracking-tighter leading-[0.9] uppercase">
             Direct-to-Consumer <br />
-            <span className="text-indigo-600 italic font-light lowercase">Ventures</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-600 via-slate-400 to-slate-300 italic font-light lowercase">Ventures</span>
           </h2>
         </div>
         <div className="lg:max-w-xs text-center lg:text-right">
-           <p className="text-slate-400 font-medium leading-relaxed text-sm lg:text-lg">
-             Bridging the gap between industrial excellence and modern lifestyle through our signature retail labels.
-           </p>
+          <p className="text-slate-400 font-medium leading-relaxed text-sm lg:text-lg">
+            Bridging the gap between industrial excellence and modern lifestyle through our signature retail labels.
+          </p>
         </div>
       </div>
 
       {/* Ventures List with Stacking Animation */}
-      <div className="relative pb-[20vh] lg:pb-[30vh]">
+      <div className="relative pb-[40vh] lg:pb-[50vh]">
         {brands.map((brand, idx) => (
           <div
             key={brand.name}
-            className={`sticky w-full ${
-              idx === brands.length - 1 ? 'mb-0' : 'mb-[10vh] lg:mb-[20vh]'
-            } top-[8vh] sm:top-[10vh] md:top-[12vh] lg:top-[15vh]`}
-            style={{ 
+            className={`sticky w-full ${idx === brands.length - 1 ? 'mb-0' : 'mb-[0vh] lg:mb-[0vh]'
+              } top-[8vh] sm:top-[10vh] md:top-[12vh] lg:top-[15vh]`}
+            style={{
               zIndex: idx + 1,
             }}
           >
@@ -131,18 +131,18 @@ const BrandsSection: React.FC<BrandsSectionProps> = ({ onProductClick }) => {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center relative z-10 w-full">
-                
+
                 {/* Image Column */}
                 <div className={`lg:col-span-5 relative group/img ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                  <div className="relative aspect-square overflow-hidden rounded-2xl lg:rounded-[48px] bg-slate-50 border border-slate-100">
-                    <img 
-                      src={brand.image} 
-                      alt={brand.name} 
-                      className="w-full h-full object-contain p-6 lg:p-12 transition-transform duration-700 group-hover:scale-105" 
+                  <div className="relative aspect-square overflow-hidden rounded-2xl lg:rounded-[48px] bg-white border border-slate-100">
+                    <img
+                      src={brand.image}
+                      alt={brand.name}
+                      className="w-full h-full object-contain p-6 lg:p-12 transition-transform duration-700 group-hover:scale-105"
                       referrerPolicy="no-referrer"
                     />
                   </div>
-                  
+
                   {/* Category Badge */}
                   <div className={`absolute -bottom-3 ${idx % 2 === 1 ? '-left-2' : '-right-2'} z-20`}>
                     <div className="px-4 py-2 lg:px-6 lg:py-3 rounded-xl bg-slate-900 text-white shadow-xl border border-white/10">
@@ -165,15 +165,15 @@ const BrandsSection: React.FC<BrandsSectionProps> = ({ onProductClick }) => {
                     </p>
 
                     <div className={`flex items-center space-x-1 ${idx % 2 === 1 ? 'lg:justify-end' : ''}`}>
-                      {[1,2,3,4,5].map(i => (
-                        <Star key={i} size={14} className="text-indigo-600/20" fill="currentColor" />
+                      {[1, 2, 3, 4, 5].map(i => (
+                        <Star key={i} size={14} className="text-amber-400" fill="currentColor" />
                       ))}
                     </div>
 
                     <div className={`pt-4 lg:pt-6 flex flex-wrap items-center gap-4 ${idx % 2 === 1 ? 'lg:justify-end' : ''}`}>
-                      <button 
+                      <button
                         onClick={(e) => { e.stopPropagation(); onProductClick?.(brand); }}
-                        className="group/btn relative inline-flex items-center space-x-4 px-6 py-3 lg:px-8 lg:py-4 rounded-full bg-slate-900 text-white text-[10px] lg:text-xs font-bold transition-all duration-300 hover:bg-indigo-600 shadow-lg active:scale-95"
+                        className="group/btn relative inline-flex items-center space-x-4 px-6 py-3 lg:px-8 lg:py-4 rounded-full bg-slate-900 text-white text-[10px] lg:text-xs font-bold transition-all duration-300 hover:bg-slate-700 shadow-lg active:scale-95"
                       >
                         <span>Explore Label</span>
                         <ArrowRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
@@ -187,7 +187,7 @@ const BrandsSection: React.FC<BrandsSectionProps> = ({ onProductClick }) => {
                           onClick={(e) => e.stopPropagation()}
                           className="group/web relative inline-flex items-center space-x-2 px-6 py-3 lg:px-8 lg:py-4 rounded-full bg-white text-slate-900 border border-slate-200 text-[10px] lg:text-xs font-bold transition-all duration-300 hover:bg-slate-50 shadow-sm active:scale-95"
                         >
-                          <Globe size={16} className="text-indigo-600" />
+                          <Globe size={16} className="text-slate-600" />
                           <span>Visit Website</span>
                         </a>
                       ) : (

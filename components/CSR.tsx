@@ -9,7 +9,7 @@ interface CSRProps {
 const CSR: React.FC<CSRProps> = ({ onLearnMore }) => {
   return (
     <div className="max-w-7xl mx-auto px-6">
-      <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+      <div className="grid lg:grid-cols-2 gap-12 lg:gap-32 items-center">
         {/* Left Content */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -19,39 +19,46 @@ const CSR: React.FC<CSRProps> = ({ onLearnMore }) => {
           className="space-y-8 lg:space-y-12"
         >
           <div>
-            <h2 className="text-4xl lg:text-7xl font-serif text-slate-900 leading-tight mb-6">
+            <h2 className="text-4xl lg:text-5xl xl:text-7xl font-serif font-bold text-slate-900 leading-[0.9] mb-8 uppercase tracking-tighter">
               Sustainability <br />
-              <span className="text-emerald-600 italic">is Responsibility</span>
+              <span className="italic font-light lowercase text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-green-600 to-emerald-900">is Responsibility</span>
             </h2>
-            <p className="text-lg lg:text-xl text-slate-500 font-light leading-relaxed">
-              At Kudu, we believe that industrial excellence must harmonize with environmental stewardship. 
-              Our operations are engineered to minimize footprint while maximizing positive impact.
+            <p className="text-sm lg:text-base text-slate-500 font-medium leading-relaxed max-w-xl">
+              At Kudu, we believe that industrial excellence must harmonize with environmental stewardship.
+              We are committed to a greener future through renewable energy and circular materials.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-3 gap-4 sm:gap-8">
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-emerald-600">
                 <Zap size={18} />
-                <span className="text-2xl font-serif">15MW</span>
+                <span className="text-xl sm:text-2xl font-serif">50%+</span>
               </div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Solar Capacity</p>
+              <p className="text-[8px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Green Power</p>
             </div>
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-emerald-600">
                 <Droplets size={18} />
-                <span className="text-2xl font-serif">100%</span>
+                <span className="text-xl sm:text-2xl font-serif">100%</span>
               </div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Water Recycled</p>
+              <p className="text-[8px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Water Recycled</p>
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-center space-x-2 text-emerald-600">
+                <Recycle size={18} />
+                <span className="text-xl sm:text-2xl font-serif">Eco</span>
+              </div>
+              <p className="text-[8px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Recycled Yarn</p>
             </div>
           </div>
 
           <motion.button
             whileHover={{ x: 10 }}
             onClick={onLearnMore}
-            className="flex items-center space-x-4 text-slate-900 font-bold group"
+            className="flex items-center space-x-4 text-slate-900 font-medium group"
           >
-            <span className="text-sm uppercase tracking-widest border-b-2 border-emerald-500 pb-1">Explore our ESG Vision</span>
+            <span className="text-sm uppercase border-b-2 border-emerald-500 pb-1">Explore our ESG Vision</span>
             <ArrowRight size={20} className="text-emerald-500 group-hover:translate-x-2 transition-transform" />
           </motion.button>
         </motion.div>
@@ -65,9 +72,9 @@ const CSR: React.FC<CSRProps> = ({ onLearnMore }) => {
           className="relative"
         >
           <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl relative">
-            <img 
-              src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1200" 
-              alt="Sustainable Future" 
+            <img
+              src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1200"
+              alt="Sustainable Future"
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
             />

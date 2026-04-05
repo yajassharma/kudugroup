@@ -29,8 +29,27 @@ interface InvestorRelationsPageProps {
 const InvestorRelationsPage: React.FC<InvestorRelationsPageProps> = ({ onBack, initialSubPage = 'landing' }) => {
   const [currentSubPage, setCurrentSubPage] = useState<InvestorSubPage>(initialSubPage);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
+  React.useLayoutEffect(() => {
+    // Try global Lenis-aware scroll first, fallback to standard
+    if ((window as any).scrollToTop) {
+      (window as any).scrollToTop();
+    } else {
+      window.scrollTo(0, 0);
+    }
+    
+    // Multi-stage fallback for complex transitions/mobile
+    const timers = [
+      setTimeout(() => {
+        if ((window as any).scrollToTop) (window as any).scrollToTop();
+        else window.scrollTo(0, 0);
+      }, 50),
+      setTimeout(() => {
+        if ((window as any).scrollToTop) (window as any).scrollToTop();
+        else window.scrollTo(0, 0);
+      }, 250)
+    ];
+    
+    return () => timers.forEach(t => clearTimeout(t));
   }, [currentSubPage]);
 
   const LandingView = () => {

@@ -7,15 +7,17 @@ import { motion } from 'framer-motion';
 interface PrintingProcessingProps {
   onBack: () => void;
   onNext: () => void;
+  onContactClick?: () => void;
 }
 
-const PrintingProcessing: React.FC<PrintingProcessingProps> = ({ onBack, onNext }) => {
+const PrintingProcessing: React.FC<PrintingProcessingProps> = ({ onBack, onNext, onContactClick }) => {
   return (
-    <VerticalLayout 
-      title="Printing & Processing" 
+    <VerticalLayout
+      title="Printing & Processing"
       subtitle="Advanced sublimation, digital dyeing, and fabric finishing technologies ensuring world-class color consistency and texture."
-      image="https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_psechqpsechqpsec.png"
+      image="https://ik.imagekit.io/yajas/DSC01315.JPG"
       onBack={onBack}
+      onContactClick={onContactClick}
       nextVertical={{ title: 'Garment Manufacturing', onClick: onNext }}
     >
       <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 items-start lg:items-center mb-16 lg:mb-24">
@@ -23,9 +25,9 @@ const PrintingProcessing: React.FC<PrintingProcessingProps> = ({ onBack, onNext 
           <h2 className="text-2xl sm:text-3xl font-serif font-medium text-slate-900 mb-4 leading-tight">Art Meets Technology</h2>
         </div>
         <div className="order-2 lg:order-2 w-full relative aspect-[4/3] lg:aspect-[3/4] rounded-xl lg:rounded-2xl overflow-hidden shadow-sm border border-slate-100">
-          <img 
-            src="https://ik.imagekit.io/b6vbf9pul/Gemini_Generated_Image_y5f68ky5f68ky5f6.png" 
-            alt="Printing and Processing" 
+          <img
+            src="https://ik.imagekit.io/yajas/DSC01283.JPG"
+            alt="Printing and Processing"
             className="w-full h-full object-cover"
           />
         </div>
@@ -37,9 +39,9 @@ const PrintingProcessing: React.FC<PrintingProcessingProps> = ({ onBack, onNext 
           <div className="grid grid-cols-2 gap-6 lg:gap-8">
             {[
               { label: 'Daily Processing', value: '50,000+ Meters' },
-              { label: 'Color Precision', value: 'Delta E < 0.5' },
-              { label: 'Dyeing Units', value: 'High-Temp/Pressure' },
-              { label: 'Eco-Standard', value: 'OEKO-TEX 100' },
+              { label: 'Color Precision', value: 'Delta E < 1.0' },
+              { label: 'Printing Units', value: 'High-Speed Digital' },
+              { label: 'Curing Tech', value: 'Infrared & Steam' },
             ].map((stat, idx) => (
               <div key={idx} className="border-l border-slate-300 pl-4 lg:pl-6">
                 <p className="text-xs font-medium text-slate-500 mb-2">{stat.label}</p>
@@ -59,7 +61,7 @@ const PrintingProcessing: React.FC<PrintingProcessingProps> = ({ onBack, onNext 
             { title: 'Reactive Dyeing', desc: 'Superior color fastness and vibrancy for natural and synthetic fiber blends.' },
             { title: 'Functional Finishing', desc: 'Specialized treatments for water repellency, flame resistance, and soft-hand feel.' },
           ].map((tech, idx) => (
-            <motion.div 
+            <motion.div
               key={idx}
               whileHover={{ y: -5 }}
               className="bg-slate-50 p-6 lg:p-8 rounded-xl lg:rounded-2xl border border-slate-100 transition-all duration-300"
@@ -77,12 +79,12 @@ const PrintingProcessing: React.FC<PrintingProcessingProps> = ({ onBack, onNext 
             <PrintingInkSVG />
           </div>
           <div className="relative z-10">
-            <h3 className="text-xl sm:text-2xl lg:text-3xl font-serif font-medium text-slate-900 mb-4 lg:mb-6">Sustainable Processing</h3>
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-serif font-medium text-slate-900 mb-4 lg:mb-6">Global Compliance Standards</h3>
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6 lg:mb-8">
-              We are committed to reducing our environmental footprint through water recycling systems, eco-friendly dyes, and energy-efficient processing lines.
+              Our facilities adhere to the highest international quality benchmarks, ensuring every meter of fabric meets the rigorous demands of global luxury brands and retail chains.
             </p>
             <div className="flex flex-wrap gap-3 lg:gap-4">
-              {['Zero Liquid Discharge', 'Solar-Powered Heating', 'Bio-Degradable Dyes', 'Heat Recovery Systems'].map((item, idx) => (
+              {['ISO 9001:2015', 'OEKO-TEX Certified', 'Precision Color Kitchen', 'AQL 2.5 Standards'].map((item, idx) => (
                 <span key={idx} className="px-4 py-2 bg-white rounded-full text-xs font-medium text-slate-600 border border-slate-200 shadow-sm">
                   {item}
                 </span>
