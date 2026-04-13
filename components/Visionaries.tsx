@@ -17,28 +17,28 @@ const visionaries: Visionary[] = [
     role: "Director",
     about: "A guiding force behind Kudu Industries, bringing decades of experience in the textile sector and a steadfast commitment to quality and ethical business practices.",
     qualities: ["Industry Experience", "Ethical Leadership", "Strategic Oversight"],
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800"
+    image: "https://ik.imagekit.io/yajas/tempImagewAoiXR%201.png"
   },
   {
     name: "Mr. Gaurav Mittal",
     role: "Managing Director",
     about: "Visionary leader driving Kudu’s vertical integration, innovation, and large-scale manufacturing excellence. Focused on building a globally competitive textile ecosystem with strong operational control and long-term brand value.",
     qualities: ["Strategic Expansion", "Operational Excellence", "Industry Leadership"],
-    image: "https://ik.imagekit.io/yajas/Gemini_Generated_Image_tjghabtjghabtjgh.png"
+    image: "https://ik.imagekit.io/yajas/tempImageLSrvEp%201.png"
   },
   {
     name: "Mrs. Shilpa Mittal",
     role: "Director",
     about: "Driving brand identity, retail expansion, and positioning of Kudu’s in-house labels including Idhu, Poker, and Golfbuyindia. Focused on blending textile expertise with modern consumer demand.",
     qualities: ["Brand Development", "Market Positioning", "Creative Direction"],
-    image: "https://ik.imagekit.io/yajas/Gemini_Generated_Image_1g94a41g94a41g94.png"
+    image: "https://ik.imagekit.io/yajas/tempImagecMY61F%201.png"
   },
   {
     name: "Mr. Idhant Mittal",
     role: "Director – Business Innovation & Growth",
     about: "Representing the next generation of leadership, focusing on digital transformation, scalability, and modernizing Kudu’s global presence through technology and new-age strategy.",
     qualities: ["Digital Transformation", "Growth Strategy", "Future Vision"],
-    image: "https://ik.imagekit.io/yajas/Gemini_Generated_Image_etfe4cetfe4cetfe.png"
+    image: "https://ik.imagekit.io/yajas/Group%20104.png"
   }
 ];
 

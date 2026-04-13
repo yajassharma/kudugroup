@@ -110,10 +110,10 @@ const AboutPage: React.FC<AboutPageProps> = ({ onBack }) => {
               <h2 className="text-4xl lg:text-8xl font-serif font-bold text-slate-900 tracking-tight lowercase italic leading-[0.85]">The heart behind the machine.</h2>
               <div className="space-y-8 text-base lg:text-xl text-slate-500 font-medium leading-relaxed font-serif opacity-90">
                 <p>
-                  Kudu Group is the realization of a legacy that began with **Mr. Krishan Kumar Mittal** over five decades ago. What started as a vision for industrial self-reliance has blossomed into a sophisticated global manufacturing ecosystem.
+                  Kudu Group is the realization of a legacy that began with Mr. Krishan Kumar Mittal over five decades ago. What started as a vision for industrial self-reliance has blossomed into a sophisticated global manufacturing ecosystem.
                 </p>
                 <p>
-                  From the first rhythmic click of a knitting machine to the high-speed precision of our modern processing units, we have remained anchored in the belief that true quality is born from within. Today, this philosophy breathes through our five specialized verticals—**Knitting, Dyeing, Printing, Processing, and Garmenting**.
+                  From the first rhythmic click of a knitting machine to the high-speed precision of our modern processing units, we have remained anchored in the belief that true quality is born from within. Today, this philosophy breathes through our five specialized verticals - Knitting, Dyeing, Printing, Processing, and Garmenting.
                 </p>
                 <p>
                   This holistic approach ensures that the soul of Kudu is present in every single fiber we touch, creating a bridge between heritage wisdom and modern fashion excellence.
@@ -175,7 +175,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onBack }) => {
             <h2 className="text-3xl lg:text-7xl font-serif font-bold text-slate-900 tracking-tight italic leading-tight">A Journey of Woven Integrity.</h2>
             <div className="space-y-12">
               <p className="text-lg lg:text-2xl text-slate-500 font-medium leading-relaxed font-serif opacity-80 italic">
-                For over five decades, Kudu Group has stood as a symbol of industrial resilience and reliability. Our journey is defined by a relentless pursuit of vertical excellence—a rare commitment to mastering every stage of the textile lifecycle. By creating a seamless bridge between raw yarn and luxury fashion, we have redefined what is possible in textile engineering.
+                For over five decades, Kudu Group has stood as a symbol of industrial resilience and reliability. Our journey is defined by a relentless pursuit of vertical excellence - a rare commitment to mastering every stage of the textile lifecycle. By creating a seamless bridge between raw yarn and luxury fashion, we have redefined what is possible in textile engineering.
               </p>
               <p className="text-lg lg:text-2xl text-slate-500 font-medium leading-relaxed font-serif opacity-80 italic">
                 In our knitting halls, sophisticated dye houses, and state-of-the-art printing and processing units, master craftsmen work in tandem with cutting-edge technology. This vertical integration is not just a business strategy; it is our promise of integrity, ensuring that from processing to the final garmenting, every Kudu product is a testament to the vision of our founders and the precision of our modern future.

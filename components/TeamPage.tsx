@@ -13,25 +13,25 @@ const teamMembers = [
     name: "Mr. Ganga Bhishan Mittal",
     role: "Director",
     about: "A guiding force behind Kudu Industries, bringing decades of experience in the textile sector and a steadfast commitment to quality and ethical business practices.",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800"
+    image: "https://ik.imagekit.io/yajas/tempImagewAoiXR%201.png"
   },
   {
     name: "Mr. Gaurav Mittal",
     role: "Managing Director",
     about: "Visionary leader driving Kudu’s vertical integration, innovation, and large-scale manufacturing excellence. Focused on building a globally competitive textile ecosystem with strong operational control and long-term brand value.",
-    image: "https://ik.imagekit.io/yajas/Gemini_Generated_Image_tjghabtjghabtjgh.png"
+    image: "https://ik.imagekit.io/yajas/tempImageLSrvEp%201.png"
   },
   {
     name: "Mrs. Shilpa Mittal",
     role: "Director",
     about: "Driving brand identity, retail expansion, and positioning of Kudu’s in-house labels including Idhu, Poker, and Golfbuyindia. Focused on blending textile expertise with modern consumer demand.",
-    image: "https://ik.imagekit.io/yajas/Gemini_Generated_Image_1g94a41g94a41g94.png"
+    image: "https://ik.imagekit.io/yajas/tempImagecMY61F%201.png"
   },
   {
     name: "Mr. Idhant Mittal",
     role: "Director – Business Innovation & Growth",
     about: "Representing the next generation of leadership, focusing on digital transformation, scalability, and modernizing Kudu’s global presence through technology and new-age strategy.",
-    image: "https://ik.imagekit.io/yajas/Gemini_Generated_Image_etfe4cetfe4cetfe.png"
+    image: "https://ik.imagekit.io/yajas/Group%20104.png"
   }
 ];
 
@@ -101,7 +101,7 @@ const TeamPage: React.FC<TeamPageProps> = ({ onBack, onNavClick }) => {
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-slate-900/5 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -120,7 +120,7 @@ const TeamPage: React.FC<TeamPageProps> = ({ onBack, onNavClick }) => {
       </section>
 
       {/* Workforce Section */}
-      <section className="py-24 lg:py-48 bg-slate-950 rounded-[64px] mx-6 mb-24 relative overflow-hidden text-center text-white">
+      <section className="py-24 lg:py-48 bg-slate-950 rounded-[32px] md:rounded-[64px] mx-6 mb-24 relative overflow-hidden text-center text-white">
         <div className="absolute inset-0 opacity-[0.03]">
           <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
             <pattern id="grid-dark" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -146,10 +146,10 @@ const TeamPage: React.FC<TeamPageProps> = ({ onBack, onNavClick }) => {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-200 to-slate-500 italic">800+ Hearts</span>
             </h2>
 
-            <p className="max-w-4xl mx-auto text-base lg:text-2xl text-slate-400 font-medium leading-relaxed italic px-4">
-              "Beyond leadership, our strength lies in our **800+ full-time employees**.
+            <p className="max-w-4xl mx-auto text-sm md:text-base lg:text-2xl text-slate-400 font-medium leading-relaxed italic px-4">
+              Beyond leadership, our strength lies in our 800+ full-time employees.
               From skilled master tailors to engineering specialists, our team is a diverse
-              fabric of talent working in harmony across our integrated manufacturing ecosystem."
+              fabric of talent working in harmony across our integrated manufacturing ecosystem.
             </p>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-10 pt-12 max-w-6xl mx-auto">

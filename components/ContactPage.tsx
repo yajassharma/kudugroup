@@ -204,7 +204,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
             <div className="space-y-6">
               <div className="rounded-[40px] overflow-hidden border border-slate-100 shadow-2xl h-[300px] lg:h-[350px] relative">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3423.633854972983!2d75.87114631513545!3d30.91081598157518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a83746234567b%3A0x2c0448576d2f573!2sRahon%20Rd%2C%20Ludhiana%2C%20Punjab!5e0!3m2!1sen!2sin!4v1625123456789!5m2!1sen!2sin"
+                  src="https://www.google.com/maps?q=30.942899469793215,75.88503196831566&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

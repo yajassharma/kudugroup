@@ -1,5 +1,6 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FileText, 
@@ -27,7 +28,16 @@ interface InvestorRelationsPageProps {
 }
 
 const InvestorRelationsPage: React.FC<InvestorRelationsPageProps> = ({ onBack, initialSubPage = 'landing' }) => {
-  const [currentSubPage, setCurrentSubPage] = useState<InvestorSubPage>(initialSubPage);
+  const navigate = useNavigate();
+  const currentSubPage = initialSubPage;
+
+  const setCurrentSubPage = (page: InvestorSubPage) => {
+    if (page === 'landing') {
+      navigate('/investors');
+    } else {
+      navigate(`/investors/${page}`);
+    }
+  };
 
   React.useLayoutEffect(() => {
     // Try global Lenis-aware scroll first, fallback to standard

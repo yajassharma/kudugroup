@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export type VerticalID = 'fabric-production' | 'printing-processing' | 'garment-manufacturing' | 'embroidery-finishing' | 'infrastructure-capabilities';
 
@@ -10,6 +11,7 @@ interface VerticalsLandingProps {
 }
 
 const VerticalsLanding: React.FC<VerticalsLandingProps> = ({ onVerticalClick, onBack }) => {
+  const navigate = useNavigate();
   const verticals = [
     {
       id: 'fabric-production' as VerticalID,
@@ -48,7 +50,7 @@ const VerticalsLanding: React.FC<VerticalsLandingProps> = ({ onVerticalClick, on
       {/* Fixed Sticky Header */}
       <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference text-white">
         <button
-          onClick={onBack}
+          onClick={() => navigate('/')}
           className="flex items-center space-x-2 group"
         >
           <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
@@ -65,7 +67,7 @@ const VerticalsLanding: React.FC<VerticalsLandingProps> = ({ onVerticalClick, on
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            onClick={() => onVerticalClick(vertical.id)}
+            onClick={() => navigate(`/verticals/${vertical.id}`)}
             className="group relative h-[40vh] sm:h-[60vh] w-full overflow-hidden cursor-pointer border-b border-white/10"
           >
             {/* Background Image with Zoom */}

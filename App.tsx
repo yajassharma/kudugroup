@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { Routes, Route, useNavigate, useLocation, useParams, Navigate } from 'react-router-dom';
 import { X, ChevronRight, Linkedin, Quote } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -18,6 +19,7 @@ import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
 import ProductDetail from './components/ProductDetail';
 import SmoothScroll from './components/SmoothScroll';
+import ScrollToTop from './components/ScrollToTop';
 
 import InvestorRelationsPage, { InvestorSubPage } from './components/InvestorRelationsPage';
 import CSR from './components/CSR';
@@ -159,21 +161,10 @@ const MobileMenuItem: React.FC<MobileMenuItemProps> = ({ item, onNavClick, menuI
 };
 
 const App: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<BrandProduct | null>(null);
-  const [showSustainability, setShowSustainability] = useState(false);
-  const [showContact, setShowContact] = useState(false);
-  const [showPrivacy, setShowPrivacy] = useState(false);
-  const [showTerms, setShowTerms] = useState(false);
-  const [showWholesale, setShowWholesale] = useState(false);
-  const [showInvestorRelations, setShowInvestorRelations] = useState(false);
-  const [showVerticals, setShowVerticals] = useState(false);
-  const [showAbout, setShowAbout] = useState(false);
-  const [showTeam, setShowTeam] = useState(false);
-  const [activeVertical, setActiveVertical] = useState<VerticalID | 'landing'>('landing');
-  const [irSubPage, setIrSubPage] = useState<InvestorSubPage>('landing');
-  const [isIRAccordionOpen, setIsIRAccordionOpen] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
 
   // ESC key to close menu
@@ -203,7 +194,7 @@ const App: React.FC = () => {
 
   // Section reveal animations
   useEffect(() => {
-    if (!isLoading && !selectedProduct) {
+    if (!isLoading && location.pathname === '/') {
       const sections = gsap.utils.toArray('.reveal-section');
       sections.forEach((section: any) => {
         gsap.fromTo(section,
@@ -220,197 +211,7 @@ const App: React.FC = () => {
         );
       });
     }
-  }, [isLoading, selectedProduct]);
-
-  const handleNavClick = (id: string, subPage?: string) => {
-    setIsMenuOpen(false);
-
-    if (id === 'home') {
-      handleBackToHome();
-      if ((window as any).scrollToTop) (window as any).scrollToTop();
-      else window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-
-    if (id === 'sustainability') {
-      handleSustainabilityClick();
-      return;
-    }
-
-    if (id === 'contact') {
-      handleContactClick();
-      return;
-    }
-
-    if (id === 'investor-relations') {
-      handleInvestorRelationsClick(subPage as InvestorSubPage || 'landing');
-      return;
-    }
-
-    if (id === 'about') {
-      handleAboutClick();
-      return;
-    }
-
-    if (id === 'visionaries' || id === 'team' || id === 'our-team') {
-      handleTeamClick();
-      return;
-    }
-
-    if (id === 'verticals') {
-      handleVerticalsClick(subPage as VerticalID || 'landing');
-      return;
-    }
-
-    if (id === 'privacy') {
-      handleLegalClick('privacy');
-      return;
-    }
-    if (id === 'terms') {
-      handleLegalClick('terms');
-      return;
-    }
-    if (id === 'wholesale') {
-      handleLegalClick('wholesale');
-      return;
-    }
-
-    if (id === 'brands') {
-      if (subPage) {
-        // Find the brand by name (subPage)
-        const brand = brands.find(b => b.name.toLowerCase() === subPage.toLowerCase());
-        if (brand) {
-          setSelectedProduct(brand);
-          setShowSustainability(false);
-          setShowContact(false);
-          setIsMenuOpen(false);
-          if ((window as any).scrollToTop) (window as any).scrollToTop();
-          else window.scrollTo({ top: 0, behavior: 'instant' });
-          return;
-        }
-      }
-      setIsMenuOpen(false);
-      handleBackToHome();
-      setTimeout(() => {
-        const el = document.getElementById('brands');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-      return;
-    }
-
-    if (selectedProduct || showSustainability || showContact || showInvestorRelations || showVerticals || showPrivacy || showTerms || showWholesale || showAbout || showTeam) {
-      handleBackToHome();
-      // Fast scroll after state reset
-      setTimeout(() => {
-        const el = id === 'footer' ? document.querySelector('footer') : document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-      return;
-    }
-
-    // Direct scroll for home page sections
-    const el = id === 'footer' ? document.querySelector('footer') : document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const handleProductClick = (product: BrandProduct) => {
-    setSelectedProduct(product);
-    setShowSustainability(false);
-    setShowContact(false);
-    if ((window as any).scrollToTop) (window as any).scrollToTop();
-    else window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleSustainabilityClick = () => {
-    setShowSustainability(true);
-    setSelectedProduct(null);
-    setShowContact(false);
-    if ((window as any).scrollToTop) (window as any).scrollToTop();
-    else window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleContactClick = () => {
-    setShowContact(true);
-    setShowSustainability(false);
-    setShowInvestorRelations(false);
-    setSelectedProduct(null);
-    if ((window as any).scrollToTop) (window as any).scrollToTop();
-    else window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleInvestorRelationsClick = (subPage: InvestorSubPage = 'landing') => {
-    setShowInvestorRelations(true);
-    setIrSubPage(subPage);
-    setShowContact(false);
-    setShowSustainability(false);
-    setShowVerticals(false);
-    setSelectedProduct(null);
-    if ((window as any).scrollToTop) (window as any).scrollToTop();
-    else window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleVerticalsClick = (vertical: VerticalID | 'landing' = 'landing') => {
-    setShowVerticals(true);
-    setActiveVertical(vertical);
-    setShowInvestorRelations(false);
-    setShowContact(false);
-    setShowSustainability(false);
-    setSelectedProduct(null);
-    if ((window as any).scrollToTop) (window as any).scrollToTop();
-    else window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleLegalClick = (page: 'privacy' | 'terms' | 'wholesale') => {
-    setShowPrivacy(page === 'privacy');
-    setShowTerms(page === 'terms');
-    setShowWholesale(page === 'wholesale');
-
-    setShowSustainability(false);
-    setShowContact(false);
-    setShowInvestorRelations(false);
-    setShowVerticals(false);
-    setSelectedProduct(null);
-    if ((window as any).scrollToTop) (window as any).scrollToTop();
-    else window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleAboutClick = () => {
-    setShowAbout(true);
-    setShowVerticals(false);
-    setShowInvestorRelations(false);
-    setShowContact(false);
-    setShowSustainability(false);
-    setSelectedProduct(null);
-    if ((window as any).scrollToTop) (window as any).scrollToTop();
-    else window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleTeamClick = () => {
-    setShowTeam(true);
-    setShowAbout(false);
-    setShowVerticals(false);
-    setShowInvestorRelations(false);
-    setShowContact(false);
-    setShowSustainability(false);
-    setSelectedProduct(null);
-    if ((window as any).scrollToTop) (window as any).scrollToTop();
-    else window.scrollTo({ top: 0, behavior: 'instant' });
-  };
-
-  const handleBackToHome = () => {
-    setSelectedProduct(null);
-    setShowSustainability(false);
-    setShowContact(false);
-    setShowPrivacy(false);
-    setShowTerms(false);
-    setShowWholesale(false);
-    setShowInvestorRelations(false);
-    setShowVerticals(false);
-    setShowAbout(false);
-    setShowTeam(false);
-    if ((window as any).scrollToTop) (window as any).scrollToTop();
-    else window.scrollTo({ top: 0, behavior: 'instant' });
-  };
+  }, [isLoading, location.pathname]);
 
   const menuVariants: Variants = {
     hidden: { x: '100%', opacity: 0 },
@@ -444,11 +245,206 @@ const App: React.FC = () => {
     exit: { x: 20, opacity: 0 }
   };
 
+  const handleNavClick = (id: string, subPage?: string) => {
+    setIsMenuOpen(false);
+
+    if (id === 'home') {
+      navigate('/');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (id === 'sustainability') {
+      navigate('/sustainability');
+      return;
+    }
+
+    if (id === 'contact') {
+      navigate('/contact');
+      return;
+    }
+
+    if (id === 'investor-relations') {
+      const path = subPage && subPage !== 'landing' ? `/investors/${subPage}` : '/investors';
+      navigate(path);
+      return;
+    }
+
+    if (id === 'about') {
+      navigate('/heritage');
+      return;
+    }
+
+    if (id === 'visionaries' || id === 'team' || id === 'our-team') {
+      navigate('/team');
+      return;
+    }
+
+    if (id === 'verticals') {
+      const path = subPage && subPage !== 'landing' ? `/verticals/${subPage}` : '/verticals';
+      navigate(path);
+      return;
+    }
+
+    if (id === 'privacy') {
+      navigate('/legal/privacy');
+      return;
+    }
+    if (id === 'terms') {
+      navigate('/legal/terms');
+      return;
+    }
+    if (id === 'wholesale') {
+      navigate('/legal/wholesale');
+      return;
+    }
+
+    if (id === 'brands') {
+      if (subPage) {
+        navigate(`/brands/${subPage.toLowerCase()}`);
+        return;
+      }
+      navigate('/');
+      setTimeout(() => {
+        const el = document.getElementById('brands');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+      return;
+    }
+
+    // Direct scroll for home page sections
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const el = id === 'footer' ? document.querySelector('footer') : document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const el = id === 'footer' ? document.querySelector('footer') : document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleProductClick = (product: BrandProduct) => {
+    navigate(`/brands/${product.name.toLowerCase()}`);
+  };
+
+
+  const HomeView = () => (
+    <motion.div
+      key="home-view"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <div className="snap-section">
+        <Hero startCounting={!isLoading} onNavClick={handleNavClick} />
+      </div>
+
+      <div className="relative z-30">
+        <PartnerMarquee />
+      </div>
+
+      <WavyDivider />
+
+      <section id="capabilities" className="px-6 pt-12 pb-20 lg:pt-20 lg:pb-32 bg-[#f8fafc]">
+        <BusinessVerticals onNavClick={handleNavClick} />
+      </section>
+
+      <section id="brands" className="px-6 pt-12 lg:pt-24 pb-0 bg-[#f8fafc]">
+        <BrandsSection onProductClick={handleProductClick} />
+      </section>
+
+      <div className="snap-section">
+        <GolfLicensing />
+      </div>
+
+      <div className="snap-section">
+        <Visionaries />
+      </div>
+
+      <section id="csr" className="px-6 py-20 lg:py-32 bg-[#f8fafc]">
+        <CSR onLearnMore={() => navigate('/sustainability')} />
+      </section>
+
+      <section id="testimonials" className="px-6 py-20 lg:py-32 bg-slate-50/50 rounded-[50px] mx-6 mb-24 overflow-hidden relative shadow-sm border border-black/5">
+        <Testimonials />
+      </section>
+
+      <section className="py-24 lg:py-42 px-6 bg-black relative overflow-hidden">
+        <WavyBackground />
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <Quote size={56} className="mx-auto text-white/50 mb-10" />
+          <h2 className="text-xl md:text-3xl lg:text-5xl font-serif font-light italic text-white/80 leading-tight">
+            "At Kudu, we don't just manufacture textiles; we engineer the fabric of global commerce with a heritage of trust and innovation."
+          </h2>
+          <div className="mt-12 flex items-center justify-center space-x-3 text-[13px] text-white/40">
+            <span>Corporate Ethos • Since 1969</span>
+          </div>
+        </div>
+      </section>
+    </motion.div>
+  );
+
+  const VerticalsView = () => {
+    const { id } = useParams<{ id: string }>();
+    const activeVertical = (id || 'landing') as VerticalID | 'landing';
+
+    return (
+      <div key="verticals-view">
+        {activeVertical === 'landing' && <VerticalsLanding onVerticalClick={(vid) => navigate(`/verticals/${vid}`)} onBack={() => navigate('/')} />}
+        {activeVertical === 'fabric-production' && <FabricProduction onBack={() => navigate('/verticals')} onNext={() => navigate('/verticals/printing-processing')} onContactClick={() => navigate('/contact')} />}
+        {activeVertical === 'printing-processing' && <PrintingProcessing onBack={() => navigate('/verticals')} onNext={() => navigate('/verticals/garment-manufacturing')} onContactClick={() => navigate('/contact')} />}
+        {activeVertical === 'garment-manufacturing' && <GarmentManufacturing onBack={() => navigate('/verticals')} onNext={() => navigate('/verticals/embroidery-finishing')} onContactClick={() => navigate('/contact')} />}
+        {activeVertical === 'embroidery-finishing' && <EmbroideryFinishing onBack={() => navigate('/verticals')} onNext={() => navigate('/verticals/infrastructure-capabilities')} onContactClick={() => navigate('/contact')} />}
+        {activeVertical === 'infrastructure-capabilities' && <InfrastructureCapabilities onBack={() => navigate('/verticals')} onNext={() => navigate('/verticals/fabric-production')} onContactClick={() => navigate('/contact')} />}
+      </div>
+    );
+  };
+
+  const InvestorView = () => {
+    const { subpage } = useParams<{ subpage: string }>();
+    const irSubPage = (subpage || 'landing') as InvestorSubPage;
+
+    return (
+      <InvestorRelationsPage
+        key="investor-view"
+        initialSubPage={irSubPage}
+        onBack={() => navigate('/')}
+        onNavClick={handleNavClick}
+      />
+    );
+  };
+
+  const BrandView = () => {
+    const { brandId } = useParams<{ brandId: string }>();
+    const brand = brands.find(b => b.name.toLowerCase() === brandId?.toLowerCase());
+
+    if (!brand) return <Navigate to="/" />;
+
+    return (
+      <ProductDetail
+        key="detail-view"
+        product={brand}
+        onBack={() => navigate('/')}
+        onNavClick={handleNavClick}
+      />
+    );
+  };
+
+  const LegalView = () => {
+    const { type } = useParams<{ type: string }>();
+    if (type === 'privacy') return <PrivacyPolicy key="privacy-view" onBack={() => navigate('/')} />;
+    if (type === 'terms') return <TermsOfService key="terms-view" onBack={() => navigate('/')} />;
+    if (type === 'wholesale') return <WholesaleTerms key="wholesale-view" onBack={() => navigate('/')} />;
+    return <Navigate to="/" />;
+  };
+
   return (
     <div className="relative min-h-screen text-black" ref={mainRef}>
       <SmoothScroll />
+      <ScrollToTop />
       <AnimatePresence>
-
         {isLoading && <LoadingScreen key="initial-loader" />}
       </AnimatePresence>
 
@@ -460,105 +456,19 @@ const App: React.FC = () => {
 
       <main className={`relative z-10 transition-opacity duration-700 ${isLoading ? 'opacity-0' : 'opacity-100'}`}>
         <AnimatePresence mode="wait">
-          {!selectedProduct && !showSustainability && !showContact && !showInvestorRelations && !showVerticals && !showPrivacy && !showTerms && !showWholesale && !showAbout && !showTeam ? (
-            <motion.div
-              key="home-view"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <div className="snap-section">
-                <Hero startCounting={!isLoading} onNavClick={handleNavClick} />
-              </div>
-
-
-              <div className="relative z-30">
-                <PartnerMarquee />
-              </div>
-
-              <WavyDivider />
-
-              <section id="capabilities" className="px-6 pt-12 pb-20 lg:pt-20 lg:pb-32 bg-[#f8fafc]">
-                <BusinessVerticals onNavClick={handleNavClick} />
-              </section>
-
-              <section id="brands" className="px-6 pt-12 lg:pt-24 pb-0 bg-[#f8fafc]">
-                <BrandsSection onProductClick={handleProductClick} />
-              </section>
-
-              <div className="snap-section">
-                <GolfLicensing />
-              </div>
-
-              <div className="snap-section">
-                <Visionaries />
-              </div>
-
-              <section id="csr" className="px-6 py-20 lg:py-32 bg-[#f8fafc]">
-                <CSR onLearnMore={handleSustainabilityClick} />
-              </section>
-
-              <section id="testimonials" className="px-6 py-20 lg:py-32 bg-slate-50/50 rounded-[50px] mx-6 mb-24 overflow-hidden relative shadow-sm border border-black/5">
-                <Testimonials />
-              </section>
-
-              {/* Vision Statement Section - Now at the end of the page */}
-              <section className="py-24 lg:py-42 px-6 bg-black relative overflow-hidden">
-                <WavyBackground />
-                <div className="max-w-4xl mx-auto text-center relative z-10">
-                  <Quote size={56} className="mx-auto text-white/50 mb-10" />
-                  <h2 className="text-xl md:text-3xl lg:text-5xl font-serif font-light italic text-white/80 leading-tight">
-                    "At Kudu, we don't just manufacture textiles; we engineer the fabric of global commerce with a heritage of trust and innovation."
-                  </h2>
-                  <div className="mt-12 flex items-center justify-center space-x-3 text-[13px] text-white/40">
-                    <span>Corporate Ethos • Since 1969</span>
-                  </div>
-                </div>
-              </section>
-            </motion.div>
-          ) : showSustainability ? (
-            <SustainabilityPage
-              key="sustainability-view"
-              onBack={handleBackToHome}
-            />
-          ) : showContact ? (
-            <ContactPage
-              key="contact-view"
-              onBack={handleBackToHome}
-            />
-          ) : showInvestorRelations ? (
-            <InvestorRelationsPage
-              key="investor-view"
-              initialSubPage={irSubPage}
-              onBack={handleBackToHome}
-            />
-          ) : showVerticals ? (
-            <div key="verticals-view">
-              {activeVertical === 'landing' && <VerticalsLanding onVerticalClick={(id) => handleVerticalsClick(id)} onBack={() => handleBackToHome()} />}
-              {activeVertical === 'fabric-production' && <FabricProduction onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('printing-processing')} onContactClick={() => handleNavClick('contact')} />}
-              {activeVertical === 'printing-processing' && <PrintingProcessing onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('garment-manufacturing')} onContactClick={() => handleNavClick('contact')} />}
-              {activeVertical === 'garment-manufacturing' && <GarmentManufacturing onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('embroidery-finishing')} onContactClick={() => handleNavClick('contact')} />}
-              {activeVertical === 'embroidery-finishing' && <EmbroideryFinishing onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('infrastructure-capabilities')} onContactClick={() => handleNavClick('contact')} />}
-              {activeVertical === 'infrastructure-capabilities' && <InfrastructureCapabilities onBack={() => handleVerticalsClick('landing')} onNext={() => handleVerticalsClick('fabric-production')} onContactClick={() => handleNavClick('contact')} />}
-            </div>
-          ) : showPrivacy ? (
-            <PrivacyPolicy key="privacy-view" onBack={handleBackToHome} />
-          ) : showTerms ? (
-            <TermsOfService key="terms-view" onBack={handleBackToHome} />
-          ) : showWholesale ? (
-            <WholesaleTerms key="wholesale-view" onBack={handleBackToHome} />
-          ) : showAbout ? (
-            <AboutPage key="about-view" onBack={handleBackToHome} />
-          ) : showTeam ? (
-            <TeamPage key="team-view" onBack={handleBackToHome} onNavClick={handleNavClick} />
-          ) : (
-            <ProductDetail
-              key="detail-view"
-              product={selectedProduct!}
-              onBack={() => setSelectedProduct(null)}
-              onNavClick={handleNavClick}
-            />
-          )}
+          <Routes location={location}>
+            <Route path="/" element={<HomeView />} />
+            <Route path="/heritage" element={<AboutPage key="about-view" onBack={() => navigate('/')} />} />
+            <Route path="/team" element={<TeamPage key="team-view" onBack={() => navigate('/')} onNavClick={handleNavClick} />} />
+            <Route path="/sustainability" element={<SustainabilityPage key="sustainability-view" onBack={() => navigate('/')} />} />
+            <Route path="/contact" element={<ContactPage key="contact-view" onBack={() => navigate('/')} />} />
+            <Route path="/verticals" element={<VerticalsView />} />
+            <Route path="/verticals/:id" element={<VerticalsView />} />
+            <Route path="/investors" element={<InvestorView />} />
+            <Route path="/investors/:subpage" element={<InvestorView />} />
+            <Route path="/brands/:brandId" element={<BrandView />} />
+            <Route path="/legal/:type" element={<LegalView />} />
+          </Routes>
         </AnimatePresence>
       </main>
 
