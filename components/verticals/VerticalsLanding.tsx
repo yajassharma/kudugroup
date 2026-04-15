@@ -47,18 +47,6 @@ const VerticalsLanding: React.FC<VerticalsLandingProps> = ({ onVerticalClick, on
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Fixed Sticky Header */}
-      <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference text-white">
-        <button
-          onClick={() => navigate('/')}
-          className="flex items-center space-x-2 group"
-        >
-          <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="text-[10px] uppercase tracking-[0.4em] font-bold">Back</span>
-        </button>
-        <span className="text-[10px] uppercase tracking-[0.6em] font-bold">Our Verticals</span>
-      </nav>
-
       <main className="pt-24">
         {verticals.map((vertical, index) => (
           <motion.section
