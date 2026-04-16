@@ -87,7 +87,7 @@ const InvestorInfoView: React.FC<InvestorInfoViewProps> = ({ onBack, onLanding }
             </div>
             <div className="space-y-6">
               {[
-                { label: 'Chairman', value: 'Mr. Ganga Bhishan Mittal' },
+                { label: 'Chairman', value: 'Mr. Ganga Bishan Mittal' },
                 { label: 'Managing Director', value: 'Mr. Gaurav Mittal (DIN: 01156416)' },
                 { label: 'Director', value: 'Mrs. Shilpa Mittal' },
                 { label: 'Director – Business Innovation & Growth', value: 'Mr. Idhant Mittal' },

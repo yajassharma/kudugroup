@@ -160,7 +160,7 @@ const Hero: React.FC<HeroProps> = ({ startCounting = true, onNavClick }) => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
-          className="w-full overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] aspect-video min-h-[500px] lg:min-h-[700px]"
+          className="w-full overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] aspect-video min-h-[300px] lg:min-h-[700px]"
         >
           <video
             src="https://ik.imagekit.io/yajas/7d8ed606-7ddf-4675-9325-f7a7f3f51ff7.mp4"

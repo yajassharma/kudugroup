@@ -26,7 +26,7 @@ const Testimonials: React.FC = () => {
   const duplicatedReviews = [...reviews, ...reviews];
 
   return (
-    <div className="py-5 lg:py-12 overflow-hidden bg-slate-50/50">
+    <div className="py-5 lg:py-12 overflow-hidden bg-white">
       <div className="max-w-7xl mx-auto px-4 mb-12 lg:mb-32">
         <div className="flex flex-col items-center text-center space-y-4">
           <div className="inline-flex items-center space-x-2">

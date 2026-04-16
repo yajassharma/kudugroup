@@ -123,7 +123,7 @@ const PartnerMarquee: React.FC = () => {
   return (
     <section
       ref={containerRef}
-      className="relative w-full pt-12 pb-4 lg:pt-16 lg:pb-6 bg-white overflow-hidden"
+      className="relative w-full pt-12 pb-4 lg:pt-16 lg:pb-6 bg-[#f8fafc] overflow-hidden"
     >
       {/* Elegant Centered Heading */}
       <div className="max-w-7xl mx-auto px-6 mb-4 lg:mb-8 text-center uppercase tracking-tighter">
@@ -140,8 +140,8 @@ const PartnerMarquee: React.FC = () => {
 
       <div className="flex items-center min-h-[200px] lg:min-h-[300px] relative">
         {/* Decorative Overlays — scoped to logos only, not the heading */}
-        <div className="absolute inset-y-0 left-0 w-16 lg:w-[400px] bg-gradient-to-r from-white via-white/80 to-transparent z-20 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-16 lg:w-[400px] bg-gradient-to-l from-white via-white/80 to-transparent z-20 pointer-events-none" />
+        <div className="absolute inset-y-0 left-0 w-16 lg:w-[400px] bg-gradient-to-r from-[#f8fafc] via-[#f8fafc]/80 to-transparent z-20 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-16 lg:w-[400px] bg-gradient-to-l from-[#f8fafc] via-[#f8fafc]/80 to-transparent z-20 pointer-events-none" />
 
         <motion.div
           style={{ x: xMove }}

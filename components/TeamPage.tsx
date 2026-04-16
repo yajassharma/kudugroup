@@ -10,7 +10,7 @@ interface TeamPageProps {
 
 const teamMembers = [
   {
-    name: "Mr. Ganga Bhishan Mittal",
+    name: "Mr. Ganga Bishan Mittal",
     role: "Director",
     about: "A guiding force behind Kudu Industries, bringing decades of experience in the textile sector and a steadfast commitment to quality and ethical business practices.",
     image: "https://ik.imagekit.io/yajas/tempImagewAoiXR%201.png"

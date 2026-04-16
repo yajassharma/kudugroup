@@ -341,10 +341,6 @@ const App: React.FC = () => {
         <Hero startCounting={!isLoading} onNavClick={handleNavClick} />
       </div>
 
-      <div className="relative z-30">
-        <PartnerMarquee />
-      </div>
-
       <WavyDivider />
 
       <section id="capabilities" className="px-6 pt-12 pb-20 lg:pt-20 lg:pb-32 bg-[#f8fafc]">
@@ -367,9 +363,15 @@ const App: React.FC = () => {
         <CSR onLearnMore={() => navigate('/sustainability')} />
       </section>
 
-      <section id="testimonials" className="px-6 py-20 lg:py-32 bg-slate-50/50 rounded-[50px] mx-6 mb-24 overflow-hidden relative shadow-sm border border-black/5">
+      <section id="testimonials" className="py-20 lg:py-32 bg-white overflow-hidden">
         <Testimonials />
       </section>
+
+      <WavyDivider />
+
+      <div className="relative z-30">
+        <PartnerMarquee />
+      </div>
 
       <section className="py-24 lg:py-42 px-6 bg-black relative overflow-hidden">
         <WavyBackground />

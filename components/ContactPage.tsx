@@ -26,7 +26,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
       {/* Refined Top-aligned Background Gradient & Texture */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-100/50 via-transparent to-transparent pointer-events-none" />
       <div className="absolute inset-x-0 top-0 h-1/2 opacity-[0.02] pointer-events-none mix-blend-multiply" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M0 0h100v100H0z\' fill=\'none\'/%3E%3Cpath d=\'M10 10h80v80H10z\' fill=\'%23000\' fill-opacity=\'.1\'/%3E%3C/svg%3E")' }} />
-      
+
       {/* Soft Decorative Glow */}
       <div className="absolute top-0 right-0 w-[800px] h-[600px] bg-slate-200/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none" />
 
@@ -45,11 +45,11 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
             <span className="text-[10px] font-bold uppercase tracking-wider">Return to Home</span>
           </motion.button>
 
-          <h1 className="text-5xl sm:text-7xl lg:text-9xl font-serif font-bold text-slate-900 leading-[0.9] tracking-tight mb-6">
+          <h1 className="text-4xl sm:text-7xl lg:text-9xl font-serif font-bold text-slate-900 leading-[0.9] tracking-tight mb-6">
             Let's weave <br />
             <span className="italic font-light text-slate-500 font-serif lowercase tracking-normal">something great.</span>
           </h1>
-          <p className="text-slate-500 text-lg lg:text-xl max-w-2xl font-medium leading-relaxed mx-auto lg:mx-0">
+          <p className="text-slate-500 text-sm lg:text-xl max-w-2xl font-medium leading-relaxed mx-auto lg:mx-0">
             From manufacturing partnerships to bespoke textile consulting—our global corporate team is at your service.
           </p>
         </div>
@@ -86,8 +86,8 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                       <input
                         required
                         type="text"
-                        placeholder="Johnathan Sterling"
-                        className="w-full bg-transparent border-b border-slate-200 py-3 outline-none focus:border-slate-900 transition-all font-medium text-base lg:text-lg placeholder:text-slate-200"
+                        placeholder="Your Name"
+                        className="w-full bg-transparent border-b border-slate-200 py-3 outline-none focus:border-slate-900 transition-all font-medium text-sm lg:text-lg placeholder:text-slate-200"
                       />
                     </div>
                     <div className="space-y-2 group">
@@ -95,8 +95,8 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                       <input
                         required
                         type="email"
-                        placeholder="john@sterling.com"
-                        className="w-full bg-transparent border-b border-slate-200 py-3 outline-none focus:border-slate-900 transition-all font-medium text-base lg:text-lg placeholder:text-slate-200"
+                        placeholder="Your Email"
+                        className="w-full bg-transparent border-b border-slate-200 py-3 outline-none focus:border-slate-900 transition-all font-medium text-sm lg:text-lg placeholder:text-slate-200"
                       />
                     </div>
                   </div>
@@ -105,7 +105,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                     <div className="space-y-2 group">
                       <label className="text-[10px] font-bold uppercase text-slate-400 ml-1 tracking-wider transition-colors group-focus-within:text-slate-900">Nature of Inquiry</label>
                       <div className="relative">
-                        <select className="w-full bg-transparent border-b border-slate-200 py-3 outline-none focus:border-slate-900 transition-all font-medium appearance-none text-base lg:text-lg cursor-pointer">
+                        <select className="w-full bg-transparent border-b border-slate-200 py-3 outline-none focus:border-slate-900 transition-all font-medium appearance-none text-sm lg:text-lg cursor-pointer">
                           <option>Manufacturing Partnership</option>
                           <option>Retail & Intuitional Supply</option>
                           <option>International Golf Licensing</option>
@@ -119,8 +119,8 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                       <label className="text-[10px] font-bold uppercase text-slate-400 ml-1 tracking-wider transition-colors group-focus-within:text-slate-900">Company (Optional)</label>
                       <input
                         type="text"
-                        placeholder="Global Ventures Ltd."
-                        className="w-full bg-transparent border-b border-slate-200 py-3 outline-none focus:border-slate-900 transition-all font-medium text-base lg:text-lg placeholder:text-slate-200"
+                        placeholder="Your Company"
+                        className="w-full bg-transparent border-b border-slate-200 py-3 outline-none focus:border-slate-900 transition-all font-medium text-sm lg:text-lg placeholder:text-slate-200"
                       />
                     </div>
                   </div>
@@ -131,7 +131,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                       required
                       rows={4}
                       placeholder="Specify your requirements or inquiry details here..."
-                      className="w-full bg-transparent border-b border-slate-200 py-3 outline-none focus:border-slate-900 transition-all font-medium resize-none text-base lg:text-lg placeholder:text-slate-200"
+                      className="w-full bg-transparent border-b border-slate-200 py-3 outline-none focus:border-slate-900 transition-all font-medium resize-none text-sm lg:text-lg placeholder:text-slate-200"
                     ></textarea>
                   </div>
 
@@ -139,11 +139,11 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                     <button
                       disabled={formState === 'submitting'}
                       type="submit"
-                      className="w-full bg-slate-900 text-white rounded-2xl py-5 lg:py-6 font-bold text-[10px] lg:text-xs uppercase tracking-wider hover:bg-slate-800 transition-all duration-300 shadow-lg active:scale-[0.98]"
+                      className="w-full bg-slate-900 text-white rounded-2xl py-4 lg:py-6 font-bold text-[10px] lg:text-xs uppercase tracking-wider hover:bg-slate-800 transition-all duration-300 shadow-lg active:scale-[0.98]"
                     >
                       {formState === 'submitting' ? 'Transmitting...' : 'Send Enquiry'}
                     </button>
-                    
+
                     <p className="text-center text-[10px] text-slate-400 font-medium tracking-wide">
                       Our corporate relations team will contact you within 24 hours of your enquiry.
                     </p>
@@ -156,30 +156,30 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
           {/* Info Section */}
           <div className="lg:col-span-5 space-y-12 lg:space-y-16 pt-6">
             <div className="space-y-8 lg:space-y-12">
-              <h3 className="text-2xl lg:text-3xl font-serif font-bold text-slate-900 border-l-4 border-slate-900 pl-6">Corporate Office</h3>
-              
+              <h3 className="text-xl lg:text-3xl font-serif font-bold text-slate-900 border-l-4 border-slate-900 pl-6">Corporate Office</h3>
+
               <div className="space-y-8 lg:space-y-10">
                 {[
-                  { 
-                    icon: <MapPin size={20} />, 
-                    label: 'HQ Address', 
+                  {
+                    icon: <MapPin size={20} />,
+                    label: 'HQ Address',
                     value: 'B - XXXII , 1106/2, Rahon Road, Ludhiana - 141007 (PB.)',
                     sub: 'Corporate Headquarters & Manufacturing Hub'
                   },
-                  { 
-                    icon: <Phone size={20} />, 
-                    label: 'Direct Line', 
+                  {
+                    icon: <Phone size={20} />,
+                    label: 'Direct Line',
                     value: '+91 (161) 500 0000',
                     sub: 'Availability: Mon – Sat, 9am – 6pm IST'
                   },
-                  { 
-                    icon: <Mail size={20} />, 
-                    label: 'Digital Mail', 
+                  {
+                    icon: <Mail size={20} />,
+                    label: 'Digital Mail',
                     value: 'info@kudugroup.com',
                     sub: 'For general and partnership inquiries'
                   },
                 ].map((item, idx) => (
-                  <motion.div 
+                  <motion.div
                     key={idx}
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
@@ -192,7 +192,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                     </div>
                     <div>
                       <p className="text-[9px] font-bold uppercase tracking-widest text-slate-400 mb-1">{item.label}</p>
-                      <p className="text-slate-900 font-bold text-base lg:text-lg leading-snug mb-1">{item.value}</p>
+                      <p className="text-slate-900 font-bold text-sm lg:text-lg leading-snug mb-1">{item.value}</p>
                       <p className="text-slate-400 text-[11px] font-medium leading-relaxed italic">{item.sub}</p>
                     </div>
                   </motion.div>
